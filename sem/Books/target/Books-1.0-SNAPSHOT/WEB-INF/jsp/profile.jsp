@@ -6,5 +6,6 @@
 <body>
 <h1>Корзина</h1>
 <form action="/login" method="get"><button name="button" value="exit">Выйти</button></form>
+<form action="/menu" method="get"><button name="button" value="exit">В меню</button></form>
 </body>
 </html>

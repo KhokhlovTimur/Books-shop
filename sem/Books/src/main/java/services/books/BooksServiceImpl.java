@@ -1,6 +1,7 @@
 package services.books;
 
 import dao.books.BooksRepository;
+import models.Author;
 import models.Book;
 
 import java.util.List;
@@ -36,5 +37,10 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public List<Book> findAllBooks() {
         return booksRepository.findAllBooks();
+    }
+
+    @Override
+    public Optional<Author> findBookAuthorByAuthorId(Long id) {
+        return null;
     }
 }

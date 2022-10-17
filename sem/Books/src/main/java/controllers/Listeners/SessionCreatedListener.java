@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpSessionListener;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @WebListener
-public class SessionListener implements HttpSessionListener {
+public class SessionCreatedListener implements HttpSessionListener {
     private static final AtomicInteger ACTIVE_SESSIONS = new AtomicInteger();
 
     @Override

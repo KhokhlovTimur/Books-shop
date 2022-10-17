@@ -1,5 +1,6 @@
 package dao.books;
 
+import models.Author;
 import models.Book;
 import models.User;
 
@@ -16,4 +17,6 @@ public interface BooksRepository {
     public void updateBook(Book book);
 
     public List<Book> findAllBooks();
+
+
 }

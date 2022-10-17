@@ -1,19 +1,103 @@
+body {
+
+}
+
 .block1 {
     border-bottom: 2px solid black;
     height: 10%;
     width: 100%;
     position: relative;
     margin: 0;
-    /*background-color: rgb(237, 237, 237);*/
+    box-sizing: border-box;
+    /*background: #3b5998;*/
 }
 
 .block1 button {
-    position: absolute;
-    right: 10px;
-    margin-top: 5px;
-    width: 50px;
-    height: 40px;
+    position: relative;
+    float: left;
+    margin: 5px 10px 10px 10px;
+    width: 150px;
+    height: 60%;
+    color: white;
+    vertical-align: center;
+    background: #2e58c4;
+    border: 0;
+    border-radius: 10px;
     cursor: pointer;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    /*background: #a4c2f3;*/
+}
+
+.container > div {
+    position: relative;
+    width: 20%;
+    height: 370px;
+    float: left;
+    /*border: 2px solid #29487d;*/
+    margin-right: 30px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: #f2f2f8;
+    /*padding: 2px 0px 5px 0px;*/
+    box-sizing: border-box;
+}
+
+.container > div:first-child {
+    margin-left: 10px;
+}
+
+.info {
+    text-align: left;
+    margin: 2px 0px 3px 10px;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.infoibutton {
+    position: absolute;
+    width: 90%;
+    text-align: center;
+    height: 26px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: inherit;
+    border: 0px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0px;
+    margin-top: 5px;
+    bottom: 5px;
+}
+
+.container div:hover .infoibutton {
+    background: #2e58c4;
+    font-size: 18px;
+    font-family: inherit;
+    font-weight: bold;
+    color: ghostwhite;
+}
+
+.price {
+    position: relative;
+    color: dimgrey;
+    bottom: 5px;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.bookimg {
+    width: 90%;
+    height: 260px;
+    text-align: center;
+    margin-left: 11px;
+    margin-top: 5px;
+    margin-bottom: 2px;
 }
 
 /*.block{*/

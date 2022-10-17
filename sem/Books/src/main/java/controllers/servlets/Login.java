@@ -21,8 +21,7 @@ public class Login extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        usersService = new UsersServiceImpl(new UsersRepositoryImpl());
-        getServletContext().setAttribute("userService", usersService);
+        usersService = (UsersService) getServletContext().getAttribute("usersService");
     }
 
     @Override
@@ -67,7 +66,14 @@ public class Login extends HttpServlet {
                             session.setAttribute("password", passwordLog);
                             req.setAttribute("button", null);
                             if (usersService.findUserByLoginAndPassw(loginLog, passwordLog).isPresent()) {
+                                User lastUser = usersService.findUserByLoginAndPassw(loginLog, passwordLog).get();
                                 session.setAttribute("role", "auth");
+                                usersService.updateUser(User.builder().
+                                        id(lastUser.getId()).
+                                        role(lastUser.getRole())
+                                        .sessionId(session.getId())
+                                        .login(lastUser.getLogin())
+                                        .password(lastUser.getPassword()).build());
                                 if (usersService.findUserByLoginAndPassw(loginLog, passwordLog).get().getRole().equals("admin")) {
                                     session.setAttribute("role", "admin");
                                 }

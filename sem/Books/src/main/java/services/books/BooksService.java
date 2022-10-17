@@ -1,5 +1,6 @@
 package services.books;
 
+import models.Author;
 import models.Book;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface BooksService {
     public void updateBook(Book book);
 
     public List<Book> findAllBooks();
+
+    public Optional<Author> findBookAuthorByAuthorId(Long id);
 }

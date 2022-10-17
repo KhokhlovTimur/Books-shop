@@ -15,5 +15,5 @@ public class Book {
     private int yearOfPublication;
     private int quantity;
     private Long authorId;
-    private Author author;
+    private int price;
 }

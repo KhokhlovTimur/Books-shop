@@ -1,7 +1,8 @@
 package services;
 
+import dao.authors.AuthorsRepository;
 import dao.books.BooksRepository;
-import dto.AuthorDto;
+import dto.BookDto;
 import models.Author;
 import models.Book;
 
@@ -9,25 +10,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MapService {
-    private BooksRepository booksRepository;
+    private final BooksRepository booksRepository;
+    private final AuthorsRepository authorsRepository;
 
-    public MapService(BooksRepository booksRepository) {
+    public MapService(BooksRepository booksRepository, AuthorsRepository authorsRepository) {
         this.booksRepository = booksRepository;
+        this.authorsRepository = authorsRepository;
     }
 
-    public List<AuthorDto> convertAllAuthorsToAuthorDto() {
+    public List<BookDto> convertAllAuthorsToAuthorDto() {
         return booksRepository.findAllBooks().stream()
-                .map(this::convertAuthorToAuthorDto).collect(Collectors.toList());
+                .map(this::convertBookToBookDto).collect(Collectors.toList());
     }
 
-    public AuthorDto convertAuthorToAuthorDto(Book book) {
-        AuthorDto authorDto = new AuthorDto();
-        Author author = book.getAuthor();
-        authorDto.setId(author.getId());
-        authorDto.setBook(book);
-        authorDto.setBirth_year(author.getBirthYear());
-        authorDto.setName(author.getName());
-        authorDto.setSurname(author.getSurname());
-        return authorDto;
+    public BookDto convertBookToBookDto(Book book) {
+        BookDto bookDto = new BookDto();
+        Author author = authorsRepository.findAuthorById(book.getAuthorId()).get();
+        bookDto.setId(book.getId());
+        bookDto.setAuthorYearOfBirth(author.getBirthYear());
+        bookDto.setAuthorName(author.getName());
+        bookDto.setAuthorSurname(author.getSurname());
+        bookDto.setTittle(book.getTittle());
+        bookDto.setPrice(book.getPrice());
+        bookDto.setYearOfPublication(book.getYearOfPublication());
+        return bookDto;
     }
 }

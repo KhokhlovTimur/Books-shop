@@ -25,7 +25,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     private static final String SQL_DELETE_USER_BY_ID = "delete from users where id = ?";
 
     //language=SQL
-    private static final String SQL_UPDATE_USER_BY_ID = "update users set login=?, password=?, role=? where id=?";
+    private static final String SQL_UPDATE_USER_BY_ID = "update users set login=?, password=?, role=?, session_id=? where id=?";
 
     //language=SQL
     private static final String SQL_FIND_USER_BY_LOGIN_AND_PASSWORD = "select * from users where login = ? and password = ?";
@@ -144,7 +144,8 @@ public class UsersRepositoryImpl implements UsersRepository {
                 preparedStatement.setString(1, user.getLogin());
                 preparedStatement.setString(2, user.getPassword());
                 preparedStatement.setString(3, user.getRole());
-                preparedStatement.setLong(4, user.getId());
+                preparedStatement.setString(4, user.getSessionId());
+                preparedStatement.setLong(5, user.getId());
                 preparedStatement.execute();
             } catch (SQLException e) {
                 throw new IllegalArgumentException();

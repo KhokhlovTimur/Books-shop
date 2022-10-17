@@ -11,10 +11,13 @@ import models.Book;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorDto {
+public class BookDto {
     private Long id;
-    private String name;
-    private String surname;
-    private int birth_year;
-    private Book book;
+    private String tittle;
+    private int yearOfPublication;
+    private int quantity;
+    private String authorName;
+    private String authorSurname;
+    private int authorYearOfBirth;
+    private int price;
 }

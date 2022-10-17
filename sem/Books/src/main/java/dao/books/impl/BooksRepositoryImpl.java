@@ -13,7 +13,7 @@ public class BooksRepositoryImpl implements BooksRepository {
     private final Connection connection = MyDriverManager.getConnection();
 
     //language=SQL
-    private static final String SQL_SAVE_BOOK = "insert into books(tittle, author_id, year_of_publication, quantity) VALUES (?, ?, ?, ?)";
+    private static final String SQL_SAVE_BOOK = "insert into books(tittle, author_id, year_of_publication, quantity, price) VALUES (?, ?, ?, ?, ?)";
 
     //language=SQL
     private static final String SQL_FIND_BOOK_BY_ID = "select * from books where id = ?";
@@ -36,6 +36,7 @@ public class BooksRepositoryImpl implements BooksRepository {
             preparedStatement.setLong(2, book.getAuthorId());
             preparedStatement.setInt(3, book.getYearOfPublication());
             preparedStatement.setInt(4, book.getQuantity());
+            preparedStatement.setInt(5, book.getPrice());
 
             int rows = preparedStatement.executeUpdate();
             if (rows != 1) {
@@ -66,6 +67,7 @@ public class BooksRepositoryImpl implements BooksRepository {
                         .id(book.getLong("id"))
                         .tittle(book.getString("tittle"))
                         .authorId(book.getLong("author_id"))
+                        .price(book.getInt("price"))
                         .yearOfPublication(book.getInt("year_of_publication"))
                         .quantity(book.getInt("quantity"))
                         .build());
@@ -118,6 +120,7 @@ public class BooksRepositoryImpl implements BooksRepository {
                 books.add(Book.builder().id(resultSet.getLong("id"))
                         .tittle(resultSet.getString("tittle"))
                         .authorId(resultSet.getLong("author_id"))
+                        .price(resultSet.getInt("price"))
                         .yearOfPublication(resultSet.getInt("year_of_publication"))
                         .quantity(resultSet.getInt("quantity"))
                         .build());

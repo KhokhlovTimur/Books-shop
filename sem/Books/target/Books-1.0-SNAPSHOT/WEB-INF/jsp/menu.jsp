@@ -15,8 +15,11 @@
 <div class="block1">
     <c:choose>
         <c:when test="${sessionScope.role eq 'auth' || sessionScope.role eq 'admin'}">
+            <form action="/cart">
+                <button>Корзина</button>
+            </form>
             <form action="/profile">
-                <button>Profile</button>
+                <button>Профиль</button>
             </form>
         </c:when>
         <c:when test="${sessionScope.role eq 'noAuth'}">
@@ -31,8 +34,22 @@
             <button style="left: 0">Управление</button>
         </form>
     </c:if>
-
 </div>
+<c:set var="books" value="${applicationScope.mapService.convertAllAuthorsToAuthorDto()}"></c:set>
+
+    <div class="container">
+        <c:forEach var="book" items="${books}">
+        <div>
+            <img class="bookimg" src="/resources/strelok.jpg">
+            <p class="price"><c:out value="${book.price}₽"></c:out></p>
+            <p class="info"><c:out value="${book.tittle} | ${book.authorSurname} ${book.authorName} | ${book.yearOfPublication}"></c:out>
+            </p>
+            <form method="post">
+            <button class="infoibutton" type="submit">В корзину</button>
+            </form>
+        </div>
+        </c:forEach>
+
 </body>
 <style>
     <%@include file="/css/menu.css" %>
