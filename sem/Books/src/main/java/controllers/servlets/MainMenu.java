@@ -5,8 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import models.User;
 import services.MapService;
 import services.books.BooksService;
+import services.carts.CartService;
 import services.users.UsersService;
 
 import java.io.IOException;
@@ -21,6 +23,12 @@ public class MainMenu extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String cartBook = req.getParameter("toCart");
+        User user = (User) req.getSession().getAttribute("user");
+        CartService cartService = (CartService) getServletContext().getAttribute("cartService");
+        if(cartBook != null && user != null){
+            cartService.saveBookToCart(Long.valueOf(cartBook), user.getId());
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, resp);
     }
 }

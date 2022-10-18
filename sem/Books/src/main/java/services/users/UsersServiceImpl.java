@@ -1,6 +1,6 @@
 package services.users;
 
-import dao.users.UsersRepository;
+import dao.usersDao.UsersRepository;
 import models.User;
 
 import java.util.List;
@@ -46,5 +46,10 @@ public class UsersServiceImpl implements UsersService{
     @Override
     public Optional<User> findUserBySessionId(String id) {
         return usersRepository.findUserBySessionId(id);
+    }
+
+    @Override
+    public Optional<User> findUserByLogin(String login) {
+        return usersRepository.findUserByLogin(login);
     }
 }

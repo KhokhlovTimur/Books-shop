@@ -1,6 +1,6 @@
 package services.authors;
 
-import dao.authors.AuthorsRepository;
+import dao.authorsDao.AuthorsRepository;
 import models.Author;
 
 import java.util.List;

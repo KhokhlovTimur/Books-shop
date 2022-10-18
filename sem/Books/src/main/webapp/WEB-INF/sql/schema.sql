@@ -24,3 +24,20 @@ create table users
     password   varchar(30),
     role       varchar(15)
 );
+
+create table cart(
+    id bigint,
+    user_id bigint references users(id) on delete cascade,
+    book_id bigint references books(id) on  delete cascade
+);
+
+create table orders(
+    id bigserial primary key,
+    price bigint,
+    user_id bigint references users(id) on delete no action
+);
+
+create table order_book(
+    book_id bigint references books(id) on delete cascade,
+    order_id bigint references orders(id) on delete cascade
+);

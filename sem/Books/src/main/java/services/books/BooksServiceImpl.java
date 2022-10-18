@@ -1,6 +1,6 @@
 package services.books;
 
-import dao.books.BooksRepository;
+import dao.booksDao.BooksRepository;
 import models.Author;
 import models.Book;
 

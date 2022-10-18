@@ -1,6 +1,6 @@
 package controllers.filters;
 
-import dao.users.impl.UsersRepositoryImpl;
+import dao.usersDao.impl.UsersRepositoryImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -15,12 +15,6 @@ import java.io.IOException;
 
 @WebFilter("/*")
 public class CheckRoleFilter extends HttpFilter {
-    private UsersService usersService;
-
-    @Override
-    public void init() throws ServletException {
-        usersService = new UsersServiceImpl(new UsersRepositoryImpl());
-    }
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {

@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/profile/*"})
+@WebFilter(urlPatterns = {"/profile/*", "/cart/*"})
 public class CheckAuthRole extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {

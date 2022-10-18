@@ -45,7 +45,7 @@
             <p class="info"><c:out value="${book.tittle} | ${book.authorSurname} ${book.authorName} | ${book.yearOfPublication}"></c:out>
             </p>
             <form method="post">
-            <button class="infoibutton" type="submit">В корзину</button>
+            <button class="infoibutton" type="submit" name="toCart" value="${book.id}">В корзину</button>
             </form>
         </div>
         </c:forEach>

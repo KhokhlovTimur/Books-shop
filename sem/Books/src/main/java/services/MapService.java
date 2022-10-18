@@ -1,7 +1,8 @@
 package services;
 
-import dao.authors.AuthorsRepository;
-import dao.books.BooksRepository;
+import dao.authorsDao.AuthorsRepository;
+import dao.booksDao.BooksRepository;
+import dao.cartsDao.CartRepository;
 import dto.BookDto;
 import models.Author;
 import models.Book;
@@ -12,10 +13,16 @@ import java.util.stream.Collectors;
 public class MapService {
     private final BooksRepository booksRepository;
     private final AuthorsRepository authorsRepository;
+    private final CartRepository cartRepository;
 
-    public MapService(BooksRepository booksRepository, AuthorsRepository authorsRepository) {
+    public MapService(BooksRepository booksRepository, AuthorsRepository authorsRepository, CartRepository cartRepository) {
         this.booksRepository = booksRepository;
         this.authorsRepository = authorsRepository;
+        this.cartRepository = cartRepository;
+    }
+
+    public List<BookDto> convertToBookDto(Long userId){
+        return cartRepository.findAllBooks(userId).stream().map(x-> booksRepository.findBookById(x.getBookId()).get()).map(this::convertBookToBookDto).collect(Collectors.toList());
     }
 
     public List<BookDto> convertAllAuthorsToAuthorDto() {
@@ -23,7 +30,7 @@ public class MapService {
                 .map(this::convertBookToBookDto).collect(Collectors.toList());
     }
 
-    public BookDto convertBookToBookDto(Book book) {
+    private BookDto convertBookToBookDto(Book book) {
         BookDto bookDto = new BookDto();
         Author author = authorsRepository.findAuthorById(book.getAuthorId()).get();
         bookDto.setId(book.getId());
