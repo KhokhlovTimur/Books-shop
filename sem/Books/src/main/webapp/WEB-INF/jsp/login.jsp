@@ -19,13 +19,12 @@
     </form>
     <form class="signIn" action="/login" method="post">
         <h3>Welcome</br>Back !</h3>
-        <button class="fb" type="button">Log In With Facebook</button>
+        <button class="fb" name="button" value="without">Without authorization</button>
         <p>- or -</p>
         <input name="loginLog" placeholder="login" autocomplete='off' reqired/>
         <input name="passwordLog" type="password" placeholder="Insert Password" reqired/>
         <button class="form-btn sx back" type="button">Back</button>
         <button class="form-btn dx" type="submit" name="button" value="log">Log In</button>
-        <button class="form-btn" name="button" value="without">Without authorization</button>
     </form>
 </div>
 <style><%@include file="/css/loginPage.css"%>

@@ -2,12 +2,14 @@ package dao.authorsDao.impl;
 
 import dao.authorsDao.AuthorsRepository;
 import models.Author;
+import models.Book;
 import providers.MyDriverManager;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class AuthorsRepositoryImpl implements AuthorsRepository {
     private final Connection connection = MyDriverManager.getConnection();
@@ -26,6 +28,18 @@ public class AuthorsRepositoryImpl implements AuthorsRepository {
 
     //language=SQL
     private static final String SQL_UPDATE_AUTHOR_BY_ID = "update authors set name=?, surname=?, birth_year=? where id=?";
+
+    private final static Function<ResultSet, Author> authorMapper = row ->{
+        try {
+            return Author.builder().id(row.getLong("id"))
+                    .birthYear(row.getInt("birth_year"))
+                    .name(row.getString("name"))
+                    .surname(row.getString("surname"))
+                    .build();
+        } catch (SQLException e) {
+            throw new IllegalArgumentException(e);
+        }
+    };
 
     @Override
     public void saveAuthor(Author author) {
@@ -60,12 +74,7 @@ public class AuthorsRepositoryImpl implements AuthorsRepository {
 
             ResultSet author = statement.executeQuery();
             if (author.next()) {
-                return Optional.of(Author.builder()
-                        .id(author.getLong("id"))
-                        .name(author.getString("name"))
-                        .surname(author.getString("surname"))
-                        .birthYear(author.getInt("birth_year"))
-                        .build());
+                return Optional.of(authorMapper.apply(author));
             }
         } catch (SQLException e) {
             throw new IllegalArgumentException();
@@ -111,11 +120,7 @@ public class AuthorsRepositoryImpl implements AuthorsRepository {
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                authors.add(Author.builder().id(resultSet.getLong("id"))
-                        .name(resultSet.getString("name"))
-                        .surname(resultSet.getString("surname"))
-                        .birthYear(resultSet.getInt("birth_year"))
-                        .build());
+                authors.add(authorMapper.apply(resultSet));
             }
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);

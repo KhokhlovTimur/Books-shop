@@ -35,14 +35,13 @@
         </form>
     </c:if>
 </div>
-<c:set var="books" value="${applicationScope.mapService.convertAllAuthorsToAuthorDto()}"></c:set>
-
+<c:set var="books" value="${applicationScope.mapService.convertAllBooksToBooksDtoFromBooks()}"></c:set>
     <div class="container">
         <c:forEach var="book" items="${books}">
         <div>
             <img class="bookimg" src="/resources/strelok.jpg">
             <p class="price"><c:out value="${book.price}₽"></c:out></p>
-            <p class="info"><c:out value="${book.tittle} | ${book.authorSurname} ${book.authorName} | ${book.yearOfPublication}"></c:out>
+            <p class="info"><c:out value="${book.title} | ${book.authorSurname} ${book.authorName} | ${book.yearOfPublication}"></c:out>
             </p>
             <form method="post">
             <button class="infoibutton" type="submit" name="toCart" value="${book.id}">В корзину</button>

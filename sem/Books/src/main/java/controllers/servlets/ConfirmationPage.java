@@ -9,9 +9,10 @@ import models.Cart;
 import models.Order;
 import models.User;
 import services.carts.CartServiceImpl;
-import services.orderBookService.OrderBookService;
 import services.orderBookService.OrderBookServiceImpl;
 import services.orderService.OrderService;
+import services.utils.CartSumService;
+import services.utils.MapService;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,13 +31,17 @@ public class ConfirmationPage extends HttpServlet {
         OrderBookServiceImpl orderBookService = ((OrderBookServiceImpl) getServletContext().getAttribute("orderBookService"));
         CartServiceImpl cartService = (CartServiceImpl) getServletContext().getAttribute("cartService");
         if (login != null && login.equals(req.getSession().getAttribute("login"))) {
-            Order newOrder = Order.builder().userId(userId).price(0L).build();
             List<Cart> carts = ((CartServiceImpl) getServletContext().getAttribute("cartService")).findAllBooks(userId);
+            Order newOrder = Order.builder()
+                    .userId(userId)
+                    .price((long) ((CartSumService) getServletContext().getAttribute("cartSumService")).getCartSumByUserId(userId))
+                    .build();
             ((OrderService) getServletContext().getAttribute("orderService")).saveOrder(newOrder);
             for (Cart cart : carts) {
                 orderBookService.saveOrderBook(newOrder.getId(), cart.getBookId());
                 cartService.deleteCartByBookIdUserId(cart.getBookId(), userId);
             }
+            newOrder.setPrice(((MapService) getServletContext().getAttribute("mapService")).convertToOrderBookDto(newOrder).getPriceAll());
             resp.sendRedirect("/cart");
         } else {
             resp.sendRedirect("/cart/confirmation");

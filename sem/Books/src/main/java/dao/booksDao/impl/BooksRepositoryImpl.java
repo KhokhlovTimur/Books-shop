@@ -2,18 +2,20 @@ package dao.booksDao.impl;
 
 import dao.booksDao.BooksRepository;
 import models.Book;
+import models.OrderBook;
 import providers.MyDriverManager;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class BooksRepositoryImpl implements BooksRepository {
     private final Connection connection = MyDriverManager.getConnection();
 
     //language=SQL
-    private static final String SQL_SAVE_BOOK = "insert into books(tittle, author_id, year_of_publication, quantity, price) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_SAVE_BOOK = "insert into books(title, author_id, year_of_publication,  price) VALUES (?, ?, ?, ?)";
 
     //language=SQL
     private static final String SQL_FIND_BOOK_BY_ID = "select * from books where id = ?";
@@ -25,18 +27,30 @@ public class BooksRepositoryImpl implements BooksRepository {
     private static final String SQL_DELETE_BOOK_BY_ID = "delete from books where id = ?";
 
     //language=SQL
-    private static final String SQL_UPDATE_BOOK_BY_ID = "update books set tittle=?, author_id=?, year_of_publication=?, quantity = ?  where id=?";
+    private static final String SQL_UPDATE_BOOK_BY_ID = "update books set title=?, author_id=?, year_of_publication=?  where id=?";
+
+    private final static Function<ResultSet, Book> bookMapper = row ->{
+        try {
+            return Book.builder().id(row.getLong("id"))
+                    .title(row.getString("title"))
+                    .yearOfPublication(row.getInt("year_of_publication"))
+                    .authorId(row.getLong("author_id"))
+                    .price( row.getInt("price"))
+                    .build();
+        } catch (SQLException e) {
+            throw new IllegalArgumentException(e);
+        }
+    };
 
 
     @Override
     public void saveBook(Book book) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SAVE_BOOK, Statement.RETURN_GENERATED_KEYS)) {
 
-            preparedStatement.setString(1, book.getTittle());
+            preparedStatement.setString(1, book.getTitle());
             preparedStatement.setLong(2, book.getAuthorId());
             preparedStatement.setInt(3, book.getYearOfPublication());
-            preparedStatement.setInt(4, book.getQuantity());
-            preparedStatement.setInt(5, book.getPrice());
+            preparedStatement.setInt(4, book.getPrice());
 
             int rows = preparedStatement.executeUpdate();
             if (rows != 1) {
@@ -63,14 +77,7 @@ public class BooksRepositoryImpl implements BooksRepository {
 
             ResultSet book = statement.executeQuery();
             if (book.next()) {
-                return Optional.of(Book.builder()
-                        .id(book.getLong("id"))
-                        .tittle(book.getString("tittle"))
-                        .authorId(book.getLong("author_id"))
-                        .price(book.getInt("price"))
-                        .yearOfPublication(book.getInt("year_of_publication"))
-                        .quantity(book.getInt("quantity"))
-                        .build());
+                return Optional.of(bookMapper.apply(book));
             }
         } catch (SQLException e) {
             throw new IllegalArgumentException();
@@ -96,11 +103,10 @@ public class BooksRepositoryImpl implements BooksRepository {
     public void updateBook(Book book) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BOOK_BY_ID)) {
             try {
-                preparedStatement.setString(1, book.getTittle());
+                preparedStatement.setString(1, book.getTitle());
                 preparedStatement.setLong(2, book.getAuthorId());
                 preparedStatement.setInt(3, book.getYearOfPublication());
-                preparedStatement.setInt(4, book.getQuantity());
-                preparedStatement.setLong(5, book.getId());
+                preparedStatement.setLong(4, book.getId());
                 preparedStatement.execute();
             } catch (SQLException e) {
                 throw new IllegalArgumentException();
@@ -117,13 +123,7 @@ public class BooksRepositoryImpl implements BooksRepository {
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                books.add(Book.builder().id(resultSet.getLong("id"))
-                        .tittle(resultSet.getString("tittle"))
-                        .authorId(resultSet.getLong("author_id"))
-                        .price(resultSet.getInt("price"))
-                        .yearOfPublication(resultSet.getInt("year_of_publication"))
-                        .quantity(resultSet.getInt("quantity"))
-                        .build());
+                books.add(bookMapper.apply(resultSet));
             }
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);

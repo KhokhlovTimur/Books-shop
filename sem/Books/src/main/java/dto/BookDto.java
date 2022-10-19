@@ -13,9 +13,8 @@ import models.Book;
 @NoArgsConstructor
 public class BookDto {
     private Long id;
-    private String tittle;
+    private String title;
     private int yearOfPublication;
-    private int quantity;
     private String authorName;
     private String authorSurname;
     private int authorYearOfBirth;

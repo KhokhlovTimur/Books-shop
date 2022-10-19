@@ -46,7 +46,6 @@ public class Login extends HttpServlet {
                     if (nonNull(passwordReg) && nonNull(loginReg) && nonNull(passwordReg2)) {
                         if (loginReg.length() > 0 && passwordReg.length() > 0 && passwordReg.equals(passwordReg2)) {
                             session.setAttribute("login", loginReg);
-//                            session.setAttribute("password", passwordReg);
                             req.setAttribute("button", null);
                             if (!usersService.findUserByLoginAndPassw(loginReg, passwordReg).isPresent() && !usersService.findUserByLogin(loginReg).isPresent()) {
                                 usersService.saveUser(User.builder().sessionId(session.getId()).login(loginReg).password(passwordReg).role("auth").build());

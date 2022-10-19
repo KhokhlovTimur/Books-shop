@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class UsersRepositoryImpl implements UsersRepository {
     private final Connection connection = MyDriverManager.getConnection();
@@ -28,13 +29,26 @@ public class UsersRepositoryImpl implements UsersRepository {
     private static final String SQL_UPDATE_USER_BY_ID = "update users set login=?, password=?, role=?, session_id=? where id=?";
 
     //language=SQL
-    private static final String SQL_FIND_USER_BY_LOGIN_AND_PASSWORD = "select * from users where login = ? and password = ?";
+//    private static final String SQL_FIND_USER_BY_LOGIN_AND_PASSWORD = "select * from users where login = ? and password = ?";
 
     //language=SQL
-    private static final String SQL_FIND_BY_SESSION_ID = "select * from users where session_id = ?";
+//    private static final String SQL_FIND_BY_SESSION_ID = "select * from users where session_id = ?";
 
     //language=SQL
-    private static final String SQL_FIND_USER_BY_LOGIN = "select * from users where login = ?";
+//    private static final String SQL_FIND_USER_BY_LOGIN = "select * from users where login = ?";
+
+    private final static Function<ResultSet, User> userMapper = row ->{
+        try {
+            return User.builder().id(row.getLong("id"))
+                    .sessionId(row.getString("session_id"))
+                    .role(row.getString("role"))
+                    .login(row.getString("login"))
+                    .password( row.getString("password"))
+                    .build();
+        } catch (SQLException e) {
+            throw new IllegalArgumentException(e);
+        }
+    };
     @Override
     public void saveUser(User user) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SAVE_USER, Statement.RETURN_GENERATED_KEYS)) {
@@ -69,76 +83,7 @@ public class UsersRepositoryImpl implements UsersRepository {
 
             ResultSet user = statement.executeQuery();
             if (user.next()) {
-                return Optional.of(User.builder().id(user.getLong("id"))
-                        .login(user.getString("login"))
-                        .password(user.getString("password"))
-                        .role(user.getString("role"))
-                        .build());
-            }
-        } catch (SQLException e) {
-            throw new IllegalArgumentException();
-        }
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<User> findUserByLogin(String login) {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN)) {
-
-            statement.setString(1, login);
-            statement.execute();
-
-            ResultSet user = statement.executeQuery();
-            if (user.next()) {
-                return Optional.of(User.builder().id(user.getLong("id"))
-                        .login(user.getString("login"))
-                        .password(user.getString("password"))
-                        .role(user.getString("role"))
-                        .build());
-            }
-        } catch (SQLException e) {
-            throw new IllegalArgumentException();
-        }
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<User> findUserBySessionId(String id) {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_SESSION_ID)) {
-
-            statement.setString(1, id);
-            statement.execute();
-
-            ResultSet user = statement.executeQuery();
-            if (user.next()) {
-                return Optional.of(User.builder().id(user.getLong("id"))
-                        .sessionId(user.getString("session_id"))
-                        .login(user.getString("login"))
-                        .password(user.getString("password"))
-                        .role(user.getString("role"))
-                        .build());
-            }
-        } catch (SQLException e) {
-            throw new IllegalArgumentException();
-        }
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<User> findUserByLoginAndPassword(String login, String password) {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN_AND_PASSWORD)) {
-
-            statement.setString(1, login);
-            statement.setString(2, password);
-            statement.execute();
-
-            ResultSet user = statement.executeQuery();
-            if (user.next()) {
-                return Optional.of(User.builder().id(user.getLong("id"))
-                        .login(user.getString("login"))
-                        .password(user.getString("password"))
-                        .role(user.getString("role"))
-                        .build());
+                return Optional.of(userMapper.apply(user));
             }
         } catch (SQLException e) {
             throw new IllegalArgumentException();
@@ -185,16 +130,74 @@ public class UsersRepositoryImpl implements UsersRepository {
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                users.add(User.builder().id(resultSet.getLong("id"))
-                        .sessionId(resultSet.getString("session_id"))
-                        .login(resultSet.getString("login"))
-                        .password(resultSet.getString("password"))
-                        .role(resultSet.getString("role"))
-                        .build());
+                users.add(userMapper.apply(resultSet));
             }
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
         }
         return users;
     }
+//
+//    @Override
+//    public Optional<User> findUserByLogin(String login) {
+//        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN)) {
+//
+//            statement.setString(1, login);
+//            statement.execute();
+//
+//            ResultSet user = statement.executeQuery();
+//            if (user.next()) {
+//                return Optional.of(userMapper.apply(user));
+//            }
+//        } catch (SQLException e) {
+//            throw new IllegalArgumentException();
+//        }
+//        return Optional.empty();
+//    }
+
+//    @Override
+//    public Optional<User> findUserBySessionId(String id) {
+//        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_SESSION_ID)) {
+//
+//            statement.setString(1, id);
+//            statement.execute();
+//
+//            ResultSet user = statement.executeQuery();
+//            if (user.next()) {
+//                return Optional.of(User.builder().id(user.getLong("id"))
+//                        .sessionId(user.getString("session_id"))
+//                        .login(user.getString("login"))
+//                        .password(user.getString("password"))
+//                        .role(user.getString("role"))
+//                        .build());
+//            }
+//        } catch (SQLException e) {
+//            throw new IllegalArgumentException();
+//        }
+//        return Optional.empty();
+//    }
+
+//    @Override
+//    public Optional<User> findUserByLoginAndPassword(String login, String password) {
+//        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN_AND_PASSWORD)) {
+//
+//            statement.setString(1, login);
+//            statement.setString(2, password);
+//            statement.execute();
+//
+//            ResultSet user = statement.executeQuery();
+//            if (user.next()) {
+//                return Optional.of(User.builder().id(user.getLong("id"))
+//                        .login(user.getString("login"))
+//                        .password(user.getString("password"))
+//                        .role(user.getString("role"))
+//                        .build());
+//            }
+//        } catch (SQLException e) {
+//            throw new IllegalArgumentException();
+//        }
+//        return Optional.empty();
+//    }
+
+
 }

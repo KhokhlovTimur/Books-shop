@@ -1,10 +1,9 @@
 create table if not exists books
 (
     id                  bigserial primary key,
-    tittle              varchar(50),
+    title              varchar(50),
     author_id           bigint references authors (id),
     year_of_publication integer,
-    quantity            integer,
     price integer
 );
 

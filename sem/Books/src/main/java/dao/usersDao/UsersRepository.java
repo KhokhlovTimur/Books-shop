@@ -10,7 +10,7 @@ public interface UsersRepository {
 
     public Optional<User> findUserById(Long id);
 
-    public Optional<User> findUserByLoginAndPassword(String login, String password);
+//    public Optional<User> findUserByLoginAndPassword(String login, String password);
 
     public void deleteUserById(Long id);
 
@@ -18,7 +18,7 @@ public interface UsersRepository {
 
     public List<User> findAllUsers();
 
-    public Optional<User> findUserBySessionId(String id);
+//    public Optional<User> findUserBySessionId(String id);
 
-    public Optional<User> findUserByLogin(String login);
+//    public Optional<User> findUserByLogin(String login);
 }

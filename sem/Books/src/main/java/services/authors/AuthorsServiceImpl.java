@@ -6,9 +6,10 @@ import models.Author;
 import java.util.List;
 import java.util.Optional;
 
-public class AuthorsServiceImpl implements AuthorService{
+public class AuthorsServiceImpl implements AuthorService {
     private final AuthorsRepository authorsRepository;
-    public AuthorsServiceImpl(AuthorsRepository authorsRepository){
+
+    public AuthorsServiceImpl(AuthorsRepository authorsRepository) {
         this.authorsRepository = authorsRepository;
     }
 

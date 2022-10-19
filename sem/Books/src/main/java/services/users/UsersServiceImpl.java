@@ -30,7 +30,12 @@ public class UsersServiceImpl implements UsersService{
 
     @Override
     public Optional<User> findUserByLoginAndPassw(String login, String password) {
-        return usersRepository.findUserByLoginAndPassword(login, password);
+        for(User user: usersRepository.findAllUsers()){
+            if(user.getLogin() != null && user.getPassword() != null && user.getLogin().equals(login) && user.getPassword().equals(password)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -45,11 +50,21 @@ public class UsersServiceImpl implements UsersService{
 
     @Override
     public Optional<User> findUserBySessionId(String id) {
-        return usersRepository.findUserBySessionId(id);
+        for(User user: usersRepository.findAllUsers()){
+            if(user.getSessionId() != null && user.getSessionId().equals(id)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
     public Optional<User> findUserByLogin(String login) {
-        return usersRepository.findUserByLogin(login);
+        for(User user: usersRepository.findAllUsers()){
+            if(user.getLogin() != null && user.getLogin().equals(login)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
 }

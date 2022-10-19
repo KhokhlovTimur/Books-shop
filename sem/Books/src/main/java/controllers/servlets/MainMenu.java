@@ -6,10 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.User;
-import services.MapService;
-import services.books.BooksService;
 import services.carts.CartService;
-import services.users.UsersService;
 
 import java.io.IOException;
 

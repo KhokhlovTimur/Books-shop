@@ -1,6 +1,6 @@
 package controllers.listeners;
 
-import dao.OrderBookDao.OrderBookImpl;
+import dao.OrderBookDao.OrderBookRepositoryImpl;
 import dao.authorsDao.impl.AuthorsRepositoryImpl;
 import dao.booksDao.impl.BooksRepositoryImpl;
 import dao.cartsDao.impl.CartRepositoryImpl;
@@ -10,7 +10,8 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import services.MapService;
+import services.utils.CartSumService;
+import services.utils.MapService;
 import services.authors.AuthorsServiceImpl;
 import services.books.BooksServiceImpl;
 import services.carts.CartServiceImpl;
@@ -26,9 +27,10 @@ public class ApplicationContextListener implements ServletContextListener {
         context.setAttribute("usersService",new UsersServiceImpl(new UsersRepositoryImpl()));
         context.setAttribute("booksService",new BooksServiceImpl(new BooksRepositoryImpl()));
         context.setAttribute("authorsService", new AuthorsServiceImpl(new AuthorsRepositoryImpl()));
-        context.setAttribute("mapService", new MapService(new BooksRepositoryImpl(), new AuthorsRepositoryImpl(), new CartRepositoryImpl()));
+        context.setAttribute("mapService", new MapService(new BooksRepositoryImpl(), new AuthorsRepositoryImpl(), new CartRepositoryImpl(), new OrderBookRepositoryImpl(), new OrderRepositoryImpl()));
         context.setAttribute("cartService", new CartServiceImpl(new CartRepositoryImpl()));
         context.setAttribute("orderService", new OrderServiceImpl(new OrderRepositoryImpl()));
-        context.setAttribute("orderBookService", new OrderBookServiceImpl(new OrderBookImpl()));
+        context.setAttribute("orderBookService", new OrderBookServiceImpl(new OrderBookRepositoryImpl()));
+        context.setAttribute("cartSumService", new CartSumService(new CartRepositoryImpl(), new BooksRepositoryImpl()));
     }
 }
