@@ -21,7 +21,7 @@ public class AuthorsRepositoryImpl implements AuthorsRepository {
     private static final String SQL_FIND_AUTHOR_BY_ID = "select * from authors where id = ?";
 
     //language=SQL
-    private static final String SQL_FIND_ALL_AUTHORS = "select * from authors";
+    private static final String SQL_FIND_ALL_AUTHORS = "select * from authors order by id";
 
     //language=SQL
     private static final String SQL_DELETE_AUTHOR_BY_ID = "delete from authors where id = ?";

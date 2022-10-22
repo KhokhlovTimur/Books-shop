@@ -1,0 +1,172 @@
+.container {
+    width: 100%;
+    position: relative;
+    /*box-sizing: content-box;*/
+}
+body{
+    background: #fdfbf5;
+}
+h2 {
+    text-align: center;
+}
+
+.authors-div br {
+    position: relative;
+    margin-left: 10px;
+    margin-bottom: 7px;
+}
+
+.form {
+    border-radius: 5px;
+    padding: 30px 20px 0 20px;
+    box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+    background: #fff;
+    text-align: center;
+    height: 470px;
+    top: 65px;
+    left: 30px;
+}
+
+.insert-author-form {
+    position: absolute;
+    z-index: 2;
+    left: 780px;
+    width: 400px;
+}
+
+.insert-book-form {
+    position: absolute;
+    width: 310px;
+}
+
+.form h2 {
+    text-align: center;
+}
+
+.form input {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #a4c2f3;
+    width: 85%;
+    font-family: 'Roboto', serif;
+    color: #3b5998;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 100;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form input:focus {
+    border-bottom: 1px solid #a4c2f3;
+}
+
+.show-author, .hide-author {
+    position: absolute;
+    left: 70%;
+}
+
+.reverse, .hide-book, .show-book, .show-author, .hide-author {
+    background: #2e58c4;
+    margin: 10px 10px 10px 10px;
+    border-radius: 10px;
+    height: 30px;
+    width: 150px;
+}
+
+.reverse, .hide-book, .show-book{
+    position: relative;
+    float: left;
+}
+
+.insertbutton, .button-auth {
+    background: #3b5998;
+    width: 160px;
+    height: 25px;
+    border-radius: 4px;
+    margin: 20px 10px 40px 20px;
+
+}
+
+.insertbutton, .hide-book, .show-book, .show-author, .hide-author, .button-auth, .reverse {
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s linear;
+}
+
+.insertbutton:hover {
+    opacity: 0.8;
+}
+
+.authors {
+    overflow-y: scroll;
+    box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.authors-div {
+    font-size: 20px;
+    position: absolute;
+    left: 360px;
+    top: 140px;
+    width: 350px;
+    height: 350px;
+}
+
+.line {
+    position: relative;
+    border-bottom: 3px solid #a4c2f3;
+    width: 100%;
+}
+
+.line span {
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.block1 {
+    border-bottom: 2px solid black;
+    height: 10%;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    box-sizing: border-box;
+    /*background: #3b5998;*/
+}
+/*.form input[type=file]{*/
+/*    border: 0;*/
+/*    background: #879cd0;*/
+/*    position: absolute;*/
+/*    z-index: -1;*/
+/*    !*opacity: 0.8;*!*/
+/*    display: block;*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    !*width:;*!*/
+/*}*/
+.span {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    font-size: 14px;
+    vertical-align: middle;
+    color: rgb(255 255 255);
+    text-align: center;
+    border-radius: 4px;
+    background-color: #419152;
+    line-height: 22px;
+    height: 40px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border: none;
+    margin: 0;
+    transition: background-color 0.2s;
+}

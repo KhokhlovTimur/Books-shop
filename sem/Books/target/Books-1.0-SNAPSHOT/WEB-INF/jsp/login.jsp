@@ -11,24 +11,23 @@
         <p>Just enter your email address</br>
             and your password for join.
         </p>
-        <input name="loginReg" class="w100" placeholder="login" reqired autocomplete='off'/>
-        <input name="passwordReg" type="password" placeholder="Insert Password" reqired/>
-        <input type="password" name="passwordReg2" placeholder="Verify Password" reqired/>
+        <input name="loginReg" class="w100" placeholder="login" required autocomplete='off'/>
+        <input name="passwordReg" type="password" placeholder="Insert Password" required/>
+        <input type="password" name="passwordReg2" placeholder="Verify Password" required/>
         <button class="form-btn sx log-in" type="button">Log In</button>
         <button class="form-btn dx" type="submit" name="button" value="reg">Sign Up</button>
     </form>
     <form class="signIn" action="/login" method="post">
         <h3>Welcome</br>Back !</h3>
-        <button class="fb" name="button" value="without">Without authorization</button>
-        <p>- or -</p>
-        <input name="loginLog" placeholder="login" autocomplete='off' reqired/>
-        <input name="passwordLog" type="password" placeholder="Insert Password" reqired/>
+        <p>- log in -</p>
+        <input name="loginLog" placeholder="login" autocomplete='off'/>
+        <input name="passwordLog" type="password" placeholder="Insert Password"/>
         <button class="form-btn sx back" type="button">Back</button>
         <button class="form-btn dx" type="submit" name="button" value="log">Log In</button>
+        <button class="fb" name="button" value="without">Without authorization</button>
     </form>
 </div>
 <style><%@include file="/css/loginPage.css"%>
-    <%@include file="/css/menu.css" %>
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
 </body>

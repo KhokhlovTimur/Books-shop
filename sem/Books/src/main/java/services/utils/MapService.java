@@ -1,6 +1,6 @@
 package services.utils;
 
-import dao.OrderBookDao.OrderBookRepository;
+import dao.orderBookDao.OrderBookRepository;
 import dao.authorsDao.AuthorsRepository;
 import dao.booksDao.BooksRepository;
 import dao.cartsDao.CartRepository;
@@ -60,7 +60,7 @@ public class MapService {
     }
 
     public List<BookDto> convertAllBooksToBooksDtoFromBooks() {
-        return booksRepository.findAllBooks().stream()
+        return booksRepository.orderBooksById().stream()
                 .map(this::convertBookToBookDto)
                 .collect(Collectors.toList());
     }

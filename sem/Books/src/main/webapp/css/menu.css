@@ -1,5 +1,5 @@
-body {
-
+body{
+    background: #fdfbf5;
 }
 
 .block1 {
@@ -53,7 +53,7 @@ body {
 
 .info {
     text-align: left;
-    margin: 2px 0px 3px 10px;
+    margin: 5px 5px 3px 10px;
     font-weight: bold;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;

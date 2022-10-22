@@ -1,32 +1,55 @@
-.container{
-    width: 60%;
-    position: relative;
-    border: 1px solid black;
-}
-input{
-    border: 0;
-}
-input:focus{
-    border: 0;
-}
-
-.mytable{
-
-}
-.table {
+.container {
     width: 100%;
-    margin-bottom: 20px;
-    border: 1px solid #dddddd;
-    border-collapse: collapse;
+    position: relative;
 }
-.table th {
+.button{
+    opacity: 0;
+}
+
+.select{
+    width: 130px;
+    height: 40px;
+    border: 1px solid #999;
+    font-size: 14px;
+    color: #1f1f1f;
+    background-color: #eee;
+    border-radius: 5px;
+    box-shadow: 4px 4px #ccc;
+}
+
+body{
+    background: snow;
+}
+.ad-table{
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+}
+
+.bt{
+    background: #f65050;
+}
+
+.update-button {
+    width: 78.5%;
+    height: 45px;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
-    padding: 5px;
-    background: #efefef;
-    border: 1px solid #dddddd;
+    cursor: pointer;
+    border: 1px #ced9ff solid;
+    border-radius: 10px;
+    background: #d7d7d7;
 }
-.table td {
-    border: 1px solid #dddddd;
-    padding: 5px;
-    width: 25px;
+
+.update-button:hover {
+    opacity: 0.8;
 }
+
+.update-button:focus {
+    margin-left: 3px;
+}
+
+#up{}

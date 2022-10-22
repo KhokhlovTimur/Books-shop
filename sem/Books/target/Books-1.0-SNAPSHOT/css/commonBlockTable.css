@@ -1,0 +1,64 @@
+.block1 {
+    border-bottom: 2px solid black;
+    height: 10%;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    box-sizing: border-box;
+    /*background: #3b5998;*/
+}
+
+.block1 button{
+    position: relative;
+    float: left;
+    margin: 5px 10px 10px 10px;
+    width: 150px;
+    height: 60%;
+    font-size: 14px;
+    color: white;
+    vertical-align: center;
+    background: #2e58c4;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.table {
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.table th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+
+.table td {
+    border: 1px solid #dddddd;
+    padding: 9px;
+    width: 25px;
+}
+
+
+.checkbox{
+    /*position: absolute;*/
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    cursor: pointer;
+}
+
+
+.label{
+    /*display: block;*/
+    /*position: relative;*/
+    padding-left: 10px;
+    margin-bottom: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    user-select: none;
+}

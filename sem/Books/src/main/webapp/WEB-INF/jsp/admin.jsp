@@ -1,6 +1,3 @@
-<%@ page import="models.User" %>
-<%@ page import="services.users.UsersService" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -9,13 +6,28 @@
     <title>Admin</title>
 </head>
 <body>
-<h1 style="background: #dfd3ff; text-align: center">Hello, admin!</h1>
 <div class="container">
+    <div class="block1">
+
+        <form action="/menu">
+            <button>В меню</button>
+        </form>
+        <form method="post" action="/admin/insert">
+            <button type="submit" style="background: #f65050;">Добавить книгу</button>
+        </form>
+        <form method="get" action="/admin/books">
+            <button style="background: #f65050;">Информация о книгах</button>
+        </form>
+
+    </div>
+
     <form method="post">
-        <table>
-            <td>
-                <input type="submit" value="Подтвердить">
-            </td>
+        <input type="submit" value="Подтвердить" class="update-button">
+        <table class="table ad-table">
+            <th>id</th>
+            <th>login</th>
+            <th>role</th>
+            <th>last session id</th>
             <c:set var="users" value="${applicationScope.usersService.findAllUsers()}"></c:set>
             <c:forEach var="user" items="${users}">
                 <tr>
@@ -23,54 +35,57 @@
                     <td><c:out value="${user.login}"></c:out></td>
                     <td><c:out value="${user.role}"></c:out></td>
                     <td><c:out value="${user.sessionId}"></c:out></td>
-                    <td>
+                    <td style="border: 0">
                         <c:if test="${user.role eq 'auth' || user.role eq 'admin'}">
-                        <select name="chooseRole">
+                        <select name="chooseRole" class="select">
                             <option value="none">Выберите роль</option>
                             <option value="${user.id}admin">Admin</option>
-                        </select></td>
+                        </select>
+                    </td>
                     </c:if>
                 </tr>
             </c:forEach>
         </table>
     </form>
-</div>
-<div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <td></td>
-            <th>Book id</th>
-            <th>title</th>
-            <th>author name</th>
-            <th>author surname</th>
-            <th>price</th>
-            <th>year of publ</th>
-        </tr>
 
-        </thead>
-        <tbody>
-        <c:set var="books" value="${applicationScope.mapService.convertAllBooksToBooksDtoFromBooks()}"></c:set>
-        <c:forEach var="book" items="${books}">
-            <tr>
-                <td><input type="checkbox" name="checkBookId" value="${book.id}"></td>
-                <td><c:out value="${book.id}"></c:out></td>
-                <td><c:out value="${book.title}"></c:out></td>
-                <td><c:out value="${book.authorName}"></c:out></td>
-                <td><c:out value="${book.authorSurname}"></c:out></td>
-                <td><c:out value="${book.price}"></c:out></td>
-                    <%--                <td><c:out value="${book.authorYearOfBirth}"></c:out></td>--%>
-                <td><c:out value="${book.yearOfPublication}"></c:out></td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
 </div>
-<form action="/menu">
-    <button>В меню</button>
-</form>
+
+<div id="toTop" style=" right: 10px;
+    width: 100px;">^
+</div>
 <style>
     <%@include file="/css/admin.css" %>
+    <%@include file="/css/commonFormToTop.css"%>
+    <%@include file="/css/commonBlockTable.css"%>
 </style>
+
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
+<script src="${pageContext.request.contextPath}/js/scroll.js"></script>
 </body>
 </html>
+<%--<script>--%>
+
+<%--    $('.hide').hide();--%>
+<%--    $('.form').hide();--%>
+<%--    $('.update').click(function () {--%>
+<%--        $('.hide').show();--%>
+<%--        $('.form').show();--%>
+<%--        $('.hide').click(function () {--%>
+<%--            $('.form').hide(500);--%>
+<%--            $('.hide').hide();--%>
+<%--        })--%>
+<%--    });--%>
+
+
+
+
+<%--    $('.hideform').hide();--%>
+<%--    $('.addbook').click(function () {--%>
+<%--        $('.hideform').show(500);--%>
+<%--        $('.form-button').click(function () {--%>
+<%--            $('.hideform').hide(1000);--%>
+<%--        })--%>
+
+<%--    })--%>
+
+<%--</script>--%>

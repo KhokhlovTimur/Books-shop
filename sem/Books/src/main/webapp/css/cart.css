@@ -1,8 +1,167 @@
-#buybutton{
-
+body {
+    background: #fdfbf5;
 }
-.block{
+
+.block {
     width: 100px;
     height: 100px;
     border: 1px black;
+}
+
+.container {
+    width: 100%;
+    height: 93%;
+    position: relative;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.block {
+    width: 40%;
+    background: snow;
+    position: relative;
+    float: bottom;
+    height: 350px;
+    left: 30%;
+    border-radius: 35px;
+    /*border: 1px solid #1a1717;*/
+    margin-bottom: 40px;
+    -webkit-box-shadow: 14px -6px 21px 13px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 14px -6px 21px 13px rgba(34, 60, 80, 0.2);
+    box-shadow: 14px -6px 21px 13px rgba(34, 60, 80, 0.2);
+}
+
+.block:first-child{
+    margin-top: 40px;
+}
+
+.text {
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.price {
+    position: absolute;
+    left: 40%;
+    margin-top: 20px;
+    font-weight: bold;
+    border-bottom: 1px dotted black;
+}
+
+.title {
+    position: absolute;
+    left: 40%;
+    top: 40%;
+}
+
+.img {
+    position: absolute;
+    margin: 20px 0 0 20px;
+    width: 150px;
+    height: 250px;
+}
+
+.delete-button {
+    position: absolute;
+    bottom: 12px;
+    left: 70%;
+    border-radius: 10px;
+    height: 40px;
+    width: 120px;
+    cursor: pointer;
+    border: 1px solid lightgrey;
+    font-size: 20px;
+}
+
+.delete-button:hover {
+    opacity: 0.8;
+}
+
+.delete-button:focus {
+    -webkit-box-shadow: 14px 1px 16px 4px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 14px 1px 16px 4px rgba(34, 60, 80, 0.2);
+    box-shadow: 14px 1px 16px 4px rgba(34, 60, 80, 0.2);
+}
+
+.line {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    border-top: 2px solid lightgrey;
+}
+
+.buy-line {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 3px solid black;
+    height: 50px;
+    margin-top: 20px;
+}
+
+.buybutton, .menu {
+    position: fixed;
+    font-size: 20px;
+    border: 0;
+
+    border-radius: 10px;
+    height: 30px;
+    z-index: 20;
+    cursor: pointer;
+    background: lightgrey;
+}
+
+.menu{
+    left: 20px;
+    top: 20px;
+    width: 150px;
+    font-size: 15px;
+    background: #2e58c4;
+    color: white;
+}
+
+.buybutton{
+    bottom: 10px;
+    left: 67%;
+    width: 170px;
+}
+.buybutton:hover {
+    opacity: 0.7;
+}
+
+.buybutton:focus {
+    -webkit-box-shadow: 14px 1px 16px 4px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 14px 1px 16px 4px rgba(34, 60, 80, 0.2);
+    box-shadow: 14px 1px 16px 4px rgba(34, 60, 80, 0.2);
+}
+
+.all-price {
+    position: absolute;
+    left: 40%;
+    font-size: 23px;
+    font-weight: bold;
+    bottom: 15px;
+}
+
+#top {
+    /*display: none;*/
+    width: 20px;
+    height: 20px;
+    border-top: 5px solid black;
+    border-right: 5px solid black;
+    transform: rotate(-45deg);
+    position: fixed;
+    display: none;
+    cursor: pointer;
+    bottom: 70px;
+    right: 70px;
+}
+
+.empty{
+    position: absolute;
+    left: 40%;
+    top: 47%;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
 }

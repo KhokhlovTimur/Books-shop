@@ -31,7 +31,7 @@
 
     <c:if test="${sessionScope.role eq 'admin'}">
         <form action="/admin">
-            <button style="left: 0">Управление</button>
+            <button style="background: #f65050;">Управление</button>
         </form>
     </c:if>
 </div>
@@ -39,7 +39,8 @@
     <div class="container">
         <c:forEach var="book" items="${books}">
         <div>
-            <img class="bookimg" src="/resources/strelok.jpg">
+            <% System.out.println(request.getContextPath());%>
+            <img class="bookimg" src="<%request.getServletContext().getRealPath("images/");%>${book.id}.jpg">
             <p class="price"><c:out value="${book.price}₽"></c:out></p>
             <p class="info"><c:out value="${book.title} | ${book.authorSurname} ${book.authorName} | ${book.yearOfPublication}"></c:out>
             </p>

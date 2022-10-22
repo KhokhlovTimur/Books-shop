@@ -2,7 +2,6 @@ package dao.booksDao.impl;
 
 import dao.booksDao.BooksRepository;
 import models.Book;
-import models.OrderBook;
 import providers.MyDriverManager;
 
 import java.sql.*;
@@ -29,6 +28,9 @@ public class BooksRepositoryImpl implements BooksRepository {
     //language=SQL
     private static final String SQL_UPDATE_BOOK_BY_ID = "update books set title=?, author_id=?, year_of_publication=?  where id=?";
 
+    //language=SQL
+    private static final String SQL_ORDER_BY_ID = "select * from books order by id";
+
     private final static Function<ResultSet, Book> bookMapper = row ->{
         try {
             return Book.builder().id(row.getLong("id"))
@@ -41,7 +43,6 @@ public class BooksRepositoryImpl implements BooksRepository {
             throw new IllegalArgumentException(e);
         }
     };
-
 
     @Override
     public void saveBook(Book book) {
@@ -120,6 +121,21 @@ public class BooksRepositoryImpl implements BooksRepository {
     public List<Book> findAllBooks() {
         List<Book> books = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL_BOOKS)) {
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                books.add(bookMapper.apply(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new IllegalArgumentException(e);
+        }
+        return books;
+    }
+
+    @Override
+    public List<Book> orderBooksById() {
+        List<Book> books = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(SQL_ORDER_BY_ID)) {
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

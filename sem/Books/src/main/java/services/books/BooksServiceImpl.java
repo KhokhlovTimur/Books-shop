@@ -1,6 +1,7 @@
 package services.books;
 
 import dao.booksDao.BooksRepository;
+import lombok.Lombok;
 import models.Author;
 import models.Book;
 
@@ -26,12 +27,15 @@ public class BooksServiceImpl implements BooksService {
 
     @Override
     public void deleteBookById(Long id) {
-        booksRepository.deleteBookById(id);
+        if (booksRepository.findBookById(id).isPresent()) {
+            booksRepository.deleteBookById(id);
+        }
     }
 
     @Override
     public void updateBook(Book book) {
         booksRepository.updateBook(book);
+
     }
 
     @Override
@@ -39,8 +43,26 @@ public class BooksServiceImpl implements BooksService {
         return booksRepository.findAllBooks();
     }
 
+//    @Override
+//    public Optional<Author> findBookAuthorByAuthorId(Long id) {
+//        return booksRepository.;
+//    }
+
     @Override
-    public Optional<Author> findBookAuthorByAuthorId(Long id) {
-        return null;
+    public void updateBookWithIncompleteParameters(Book book, String title, String price, String year, String authorId) {
+        Book newBook = new Book();
+
+        newBook.setId(book.getId());
+        newBook.setTitle(title != null && title.length() > 0? title : book.getTitle());
+        newBook.setPrice(price != null && price.length() > 0 ? Integer.parseInt(price) : book.getPrice());
+        newBook.setAuthorId(authorId != null && authorId.length() > 0 ?  Long.valueOf(authorId):  book.getAuthorId());
+        newBook.setYearOfPublication(year != null && year.length() > 0?  Integer.parseInt(year) :  book.getYearOfPublication());
+
+        this.booksRepository.updateBook(newBook);
+    }
+
+    @Override
+    public List<Book> orderBooksById() {
+        return booksRepository.orderBooksById();
     }
 }

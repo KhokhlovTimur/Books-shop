@@ -1,0 +1,37 @@
+html {
+    background-color: #ccc;
+}
+
+.form {
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 42%;
+
+}
+
+.form input {
+    border: solid 3px #fff;
+    box-sizing: border-box;
+    font-size: 2em;
+    height: 2em;
+    margin-left: -15vw;
+    outline: solid #d0d0f8 0;
+    padding: .5em;
+    transition: all 2s ease-in;
+    width: 30vw;
+    z-index: 1;
+    -webkit-box-shadow: -1px 2px 25px 24px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: -1px 2px 25px 24px rgba(34, 60, 80, 0.2);
+    box-shadow: -1px 2px 25px 24px rgba(34, 60, 80, 0.2);
+}
+
+
+.form input:focus {
+    border: solid 3px #09f;
+    outline: solid #d0d0f8 2000px;
+}
+
+.conf{
+    opacity: 0;
+}

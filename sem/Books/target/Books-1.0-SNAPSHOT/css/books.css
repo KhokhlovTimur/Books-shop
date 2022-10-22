@@ -1,0 +1,76 @@
+.container {
+    width: 100%;
+    position: relative;
+}
+body{
+    background: #fdfbf5;
+}
+.alert{
+    position: fixed;
+    left: 40%;
+    top: 140px;
+    width: 200px;
+    height: 200px;
+    background: #eeeeee;
+    font-weight: bold;
+    font-size: 23px;
+    color: #ec7b7b;
+    border-radius: 20px;
+    padding: 20px 20px;
+}
+.alert button{
+    left: 30%;
+    width: 80px;
+    height: 40px;
+    border: 0;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 10px;
+    background: #879cd0;
+    cursor: pointer;
+}
+.alert button:hover{
+    opacity: 0.8;
+}
+.upd {
+    position: fixed;
+    left: 67%;
+    top: 70px;
+    height: 500px;
+    width: 380px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+.fx-table {
+    width: 65%;
+    margin-top: 10px;
+}
+
+.fx-table td {
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.delete-button {
+    width: 65%;
+    height: 45px;
+    font-size: 20px;
+    margin-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px #ced9ff solid;
+    border-radius: 10px;
+    background: #d7d7d7;
+}
+
+.delete-button:hover {
+    opacity: 0.8;
+}
+
+.delete-button:focus {
+    margin-left: 3px;
+}

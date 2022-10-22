@@ -8,13 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Confirmation</title>
 </head>
 <body>
-Подтвердите логин
 <form method="post">
-    <input placeholder="login" type="text" name="confirmLogin">
-    <button type="submit">Подтвердить</button>
+    <div class="form">
+    <input placeholder="confirm password" type="text" name="confirmPassword">
+    </div>
+    <button type="submit" class="conf">Подтвердить</button>
+    <style>
+        <%@include file="/css/confirm.css" %>
+    </style>
 </form>
 </body>
 </html>

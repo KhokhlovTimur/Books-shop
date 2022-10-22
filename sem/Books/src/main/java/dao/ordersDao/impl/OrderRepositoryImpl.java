@@ -21,7 +21,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     private final static String SQL_FIND_ORDER_BY_ID = "select * from orders where id = ?";
 
     //language=SQL
-    private final static String SQL_FIND_ALL_ORDERS = "select * from orders";
+    private final static String SQL_FIND_ALL_ORDERS = "select * from orders order by id";
 
     private final static Function<ResultSet, Order> orderMapper = row ->{
         try {
