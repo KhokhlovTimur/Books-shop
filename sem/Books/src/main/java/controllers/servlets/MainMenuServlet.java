@@ -23,7 +23,7 @@ public class MainMenuServlet extends HttpServlet {
         String cartBook = req.getParameter("toCart");
         User user = (User) req.getSession().getAttribute("user");
         CartService cartService = (CartService) getServletContext().getAttribute("cartService");
-        if(cartBook != null && user != null){
+        if(cartBook != null && user != null && !user.getRole().equals("noAuth")){
             cartService.saveBookToCart(Long.valueOf(cartBook), user.getId());
         }
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, resp);

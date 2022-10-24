@@ -1,9 +1,12 @@
 package app;
 
 import dao.authorsDao.impl.AuthorsRepositoryImpl;
+import dao.booksDao.BooksRepository;
+import dao.booksDao.impl.BooksRepositoryImpl;
 import dao.cartsDao.CartRepository;
 import dao.cartsDao.impl.CartRepositoryImpl;
 import dao.usersDao.impl.UsersRepositoryImpl;
+import models.Book;
 import models.User;
 import services.authors.AuthorsServiceImpl;
 import services.users.UsersServiceImpl;
@@ -32,6 +35,8 @@ public class Main {
 //            throw new IllegalArgumentException();
 //        }
 //        System.out.println(new FileInputStream(new File()));
+        BooksRepository booksRepository = new BooksRepositoryImpl();
+        booksRepository.saveBook(Book.builder().description("123123").authorId(1L).yearOfPublication(1233).price(123).title("1").build());
     }
 
 }

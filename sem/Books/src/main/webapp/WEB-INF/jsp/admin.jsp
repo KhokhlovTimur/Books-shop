@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,7 +22,7 @@
 
     <form method="post">
         <input type="submit" value="Подтвердить" class="update-button">
-        <table class="table ad-table">
+        <table class="table add-table">
             <th>id</th>
             <th>login</th>
             <th>role</th>
@@ -42,6 +41,7 @@
                             <option value="${user.id}admin">Admin</option>
                         </select>
                     </td>
+                    фывфв
                     </c:if>
                 </tr>
             </c:forEach>

@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 style="margin: 10px 10px;">Личный кабинет ${sessionScope.user.login}</h1>
-
+<c:set var="userRole" value="${applicationScope.usersService.findUserById(sessionScope.user.id).get().role}"></c:set>
 <span class="balance">
             Баланс: ${applicationScope.usersService.findUserById(sessionScope.user.id).get().balance}₽
         </span>
@@ -32,13 +32,12 @@
             <button type="button" class="balance-button">Пополнить</button>
         </form>
 
-        <c:if test="${sessionScope.role eq 'admin'}">
+        <c:if test="${userRole eq 'admin'}">
             <form action="/admin">
                 <button style="background: #f65050; left: 200px">Управление</button>
             </form>
         </c:if>
     </div>
-
 
     <div class="block2">
 

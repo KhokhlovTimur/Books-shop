@@ -39,9 +39,10 @@ public class BooksServlet extends HttpServlet {
         String price = req.getParameter("price");
         String year = req.getParameter("year");
         String authorId = req.getParameter("authorId");
+        String description = req.getParameter("description");
 
         if (bookID != null && booksService.findBookById(Long.valueOf(bookID)).isPresent()) {
-            booksService.updateBookWithIncompleteParameters(booksService.findBookById(Long.valueOf(bookID)).get(), title, price, year, authorId);
+            booksService.updateBookWithIncompleteParameters(booksService.findBookById(Long.valueOf(bookID)).get(), title, price, year, authorId, description);
             if (req.getPart("image").getInputStream() instanceof FileInputStream) {
                 try (InputStream inputStream = (req.getPart("image").getInputStream())) {
                     new File("..\\imagesForSite\\booksImages").mkdirs();

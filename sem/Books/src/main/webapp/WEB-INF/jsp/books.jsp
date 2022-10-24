@@ -31,6 +31,7 @@
         <input type="text" name="year" placeholder="year of publication" id="updateYear">
         <input type="text" name="price" placeholder="price" id="updatePrice">
         <input type="file" name="image" placeholder="image" class="file">
+        <textarea name="descriptionBook" class="text-area"></textarea>
         <button type="submit" class="insertbutton" id="saveBook">Сохранить</button>
     </form>
 

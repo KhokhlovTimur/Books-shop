@@ -49,7 +49,7 @@ public class BooksServiceImpl implements BooksService {
 //    }
 
     @Override
-    public void updateBookWithIncompleteParameters(Book book, String title, String price, String year, String authorId) {
+    public void updateBookWithIncompleteParameters(Book book, String title, String price, String year, String authorId, String descript) {
         Book newBook = new Book();
 
         newBook.setId(book.getId());
@@ -57,6 +57,7 @@ public class BooksServiceImpl implements BooksService {
         newBook.setPrice(price != null && price.length() > 0 ? Integer.parseInt(price) : book.getPrice());
         newBook.setAuthorId(authorId != null && authorId.length() > 0 ?  Long.valueOf(authorId):  book.getAuthorId());
         newBook.setYearOfPublication(year != null && year.length() > 0?  Integer.parseInt(year) :  book.getYearOfPublication());
+        newBook.setDescription(descript != null ? descript : book.getDescription());
 
         this.booksRepository.updateBook(newBook);
     }

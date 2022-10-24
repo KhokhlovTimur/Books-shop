@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import models.User;
+import services.users.UsersService;
 
 import java.io.IOException;
 
@@ -13,12 +15,20 @@ import java.io.IOException;
 public class CheckAuthRoleFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        String role = (String) req.getSession().getAttribute("role");
-        if (role != null && !role.equals("auth") && !role.equals("admin")) {
-            res.sendRedirect("/menu");
+        User user = ((User) req.getSession().getAttribute("user"));
+        if (user != null) {
+            String role = ((UsersService) getServletContext().getAttribute("usersService"))
+                    .findUserById(user.getId()).get().getRole();
+            if (role != null && !role.equals("auth") && !role.equals("admin")) {
+                req.getSession().setAttribute("role", "noAuth");
+                res.sendRedirect("/menu");
+            } else {
+                chain.doFilter(req, res);
+            }
         }
-      else {
-          chain.doFilter(req, res);
+        else {
+            req.getSession().setAttribute("role", "noAuth");
+            res.sendRedirect("/menu");
         }
     }
 }

@@ -13,10 +13,8 @@ import java.io.IOException;
 public class ConfirmationFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        String isValid = req.getParameter("isTransactValid");
-        System.out.println(1);
+        String isValid = req.getParameter("isTransactValid");;
         if(isValid != null){
-            System.out.println(1);
             chain.doFilter(req, res);
         }
         else {

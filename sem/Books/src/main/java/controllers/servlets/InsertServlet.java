@@ -36,7 +36,8 @@ public class InsertServlet extends HttpServlet {
                 String authorId = req.getParameter("authorId");
                 String year = req.getParameter("year");
                 String price = req.getParameter("price");
-                if (nonNull(title) && nonNull(authorId)
+                String description = req.getParameter("descriptionBook");
+                if (nonNull(title) && nonNull(authorId) && nonNull(description)
                         && nonNull(year) && nonNull(price)
                         && ((AuthorService) getServletContext().getAttribute("authorsService")).findAuthorById(Long.valueOf(authorId)).isPresent()) {
                     Book book = Book.builder()
@@ -44,6 +45,7 @@ public class InsertServlet extends HttpServlet {
                             .authorId(Long.valueOf(authorId))
                             .yearOfPublication(Integer.parseInt(year))
                             .price(Integer.parseInt(price))
+                            .description(description)
                             .build();
                     ((BooksService) getServletContext().getAttribute("booksService")).saveBook(book);
                     if (req.getPart("image").getInputStream() instanceof FileInputStream) {

@@ -14,7 +14,7 @@ public class BooksRepositoryImpl implements BooksRepository {
     private final Connection connection = MyDriverManager.getConnection();
 
     //language=SQL
-    private static final String SQL_SAVE_BOOK = "insert into books(title, author_id, year_of_publication,  price) VALUES (?, ?, ?, ?)";
+    private static final String SQL_SAVE_BOOK = "insert into books(title, author_id, year_of_publication,  price, description) VALUES (?, ?, ?, ?, ?)";
 
     //language=SQL
     private static final String SQL_FIND_BOOK_BY_ID = "select * from books where id = ?";
@@ -26,7 +26,7 @@ public class BooksRepositoryImpl implements BooksRepository {
     private static final String SQL_DELETE_BOOK_BY_ID = "delete from books where id = ?";
 
     //language=SQL
-    private static final String SQL_UPDATE_BOOK_BY_ID = "update books set title=?, author_id=?, year_of_publication=?  where id=?";
+    private static final String SQL_UPDATE_BOOK_BY_ID = "update books set title=?, author_id=?, year_of_publication=?, description=?  where id=?";
 
     //language=SQL
     private static final String SQL_ORDER_BY_ID = "select * from books order by id";
@@ -38,6 +38,7 @@ public class BooksRepositoryImpl implements BooksRepository {
                     .yearOfPublication(row.getInt("year_of_publication"))
                     .authorId(row.getLong("author_id"))
                     .price( row.getInt("price"))
+                    .description(row.getString("description"))
                     .build();
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
@@ -52,6 +53,7 @@ public class BooksRepositoryImpl implements BooksRepository {
             preparedStatement.setLong(2, book.getAuthorId());
             preparedStatement.setInt(3, book.getYearOfPublication());
             preparedStatement.setInt(4, book.getPrice());
+            preparedStatement.setString(5, book.getDescription());
 
             int rows = preparedStatement.executeUpdate();
             if (rows != 1) {
@@ -107,7 +109,8 @@ public class BooksRepositoryImpl implements BooksRepository {
                 preparedStatement.setString(1, book.getTitle());
                 preparedStatement.setLong(2, book.getAuthorId());
                 preparedStatement.setInt(3, book.getYearOfPublication());
-                preparedStatement.setLong(4, book.getId());
+                preparedStatement.setString(4, book.getDescription());
+                preparedStatement.setLong(5, book.getId());
                 preparedStatement.execute();
             } catch (SQLException e) {
                 throw new IllegalArgumentException();

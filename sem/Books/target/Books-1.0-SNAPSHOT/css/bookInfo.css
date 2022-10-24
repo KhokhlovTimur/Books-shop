@@ -1,45 +1,116 @@
-h1{
-    margin-left: 150px;
+h1 {
+    margin-left: 130px;
 }
 
-body{
+body {
     background: #fdfbf5;
 }
 
-#line{
+p {
+    margin-bottom: 25px;
+}
+
+#line {
     position: relative;
     width: 100%;
     height: 8%;
     border-bottom: 2px solid grey;
 }
 
-#container{
+#container {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
-#img{
+#img {
     position: absolute;
     margin-top: 30px;
-    left: 150px;
-    width: 330px;
-    height: 400px;
+    left: 120px;
+    width: 350px;
+    height: 430px;
     transition: all .5s;
+    border-radius: 15px;
 }
 
-#img:hover{
-    left: 120px ;
+#img:hover {
+    left: 100px;
     margin-top: 0px;
     width: 390px;
     height: 460px;
     position: absolute;
+
 }
 
-#main-info{
-    position: absolute;
+#main-info {
+    position: relative;
     left: 550px;
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
-    top: 87px;
+    width: 600px;
+    height: 480px;
+    top: 15px;
+    border-radius: 15px;
+    padding: 20px 7px 10px 10px;
+    -webkit-box-shadow: 4px 4px 76px 13px rgba(34, 60, 80, 0.56);
+    -moz-box-shadow: 4px 4px 76px 13px rgba(34, 60, 80, 0.56);
+    box-shadow: 4px 4px 76px 13px rgba(34, 60, 80, 0.56);
+    z-index: 100;
+    overflow: hidden;
+}
+
+.text {
+    font-size: 22px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.span-info {
+    position: absolute;
+    left: 60%;
+}
+
+.span-title {
+    position: relative;
+    color: darkgrey;
+    left: 7%;
+}
+
+.to-cart-button, .to-menu {
+    position: absolute;
+    bottom: 54px;
+    left: 300px;
+    border-radius: 15px;
+    height: 50px;
+    width: 170px;
+    cursor: pointer;
+    border: 0;
+    background: #2e58c4;
+    font-size: 20px;
+    color: snow;
+}
+
+.to-menu{
+    left: 118px;
+}
+
+.to-cart-button ,.to-menu:hover {
+    opacity: 0.8;
+}
+
+.to-cart-button, .to-menu:focus {
+    -webkit-box-shadow: 14px 1px 16px 4px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 14px 1px 16px 4px rgba(34, 60, 80, 0.2);
+    box-shadow: 14px 1px 16px 4px rgba(34, 60, 80, 0.2);
+}
+
+.descript{
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    margin-left: 39px;
+    text-align: left;
+    margin-right: 15px;
+    letter-spacing: 2px;
+    overflow-y: hidden;
+    margin-bottom: 10px;
+    height: 250px;
+    text-overflow: ellipsis;
 }

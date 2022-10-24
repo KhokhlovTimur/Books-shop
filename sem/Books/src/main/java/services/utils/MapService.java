@@ -10,6 +10,7 @@ import dto.OrderBookDto;
 import models.Author;
 import models.Book;
 import models.Order;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ public class MapService {
         this.orderRepository = orderRepository;
     }
 
-    public OrderBookDto convertToOrderBookDto(Order order){
+    public OrderBookDto convertToOrderBookDto(Order order) {
         OrderBookDto orderBookDto = new OrderBookDto();
         orderBookDto.setOrderId(order.getId());
         orderBookDto.setBooks(convertToBookDtoFromOrderBook(order.getId()));
@@ -37,24 +38,24 @@ public class MapService {
         return orderBookDto;
     }
 
-    public List<OrderBookDto> convertAllToOrderBookDto(Long userId){
+    public List<OrderBookDto> convertAllToOrderBookDto(Long userId) {
         return orderRepository.findAll().stream()
-                .filter(x-> Objects.equals(x.getUserId(), userId))
+                .filter(x -> Objects.equals(x.getUserId(), userId))
                 .map(this::convertToOrderBookDto)
                 .collect(Collectors.toList());
     }
 
-    private List<BookDto> convertToBookDtoFromOrderBook(Long orderId){
+    private List<BookDto> convertToBookDtoFromOrderBook(Long orderId) {
         return orderBookRepository.findAll().stream()
-                .filter(x-> Objects.equals(x.getOrderId(), orderId))
-                .map(x->booksRepository.findBookById(x.getBookId()).get())
+                .filter(x -> Objects.equals(x.getOrderId(), orderId))
+                .map(x -> booksRepository.findBookById(x.getBookId()).get())
                 .map(this::convertBookToBookDto)
                 .collect(Collectors.toList());
     }
 
-    public List<BookDto> convertToBookDtoFromCart(Long userId){
+    public List<BookDto> convertToBookDtoFromCart(Long userId) {
         return cartRepository.findAllBooks(userId).stream()
-                .map(x-> booksRepository.findBookById(x.getBookId()).get())
+                .map(x -> booksRepository.findBookById(x.getBookId()).get())
                 .map(this::convertBookToBookDto)
                 .collect(Collectors.toList());
     }
@@ -73,6 +74,7 @@ public class MapService {
         bookDto.setAuthorName(author.getName());
         bookDto.setAuthorSurname(author.getSurname());
         bookDto.setTitle(book.getTitle());
+        bookDto.setDescription(book.getDescription());
         bookDto.setPrice(book.getPrice());
         bookDto.setYearOfPublication(book.getYearOfPublication());
         return bookDto;

@@ -1,26 +1,23 @@
 package controllers.filters;
 
-import dao.usersDao.impl.UsersRepositoryImpl;
+import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import services.users.UsersService;
-import services.users.UsersServiceImpl;
+import models.User;
 
 import java.io.IOException;
 
-@WebFilter("/*")
+@WebFilter(urlPatterns = "/*")
 public class CheckRoleFilter extends HttpFilter {
-
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpSession session = req.getSession();
-        if(session.getAttribute("role") == null || session.getAttribute("role").equals("noAuth")){
-            session.setAttribute("role", "noAuth");
+        User user = ((User) req.getSession().getAttribute("user"));
+        if(user == null || req.getSession().getAttribute("role") == null){
+            req.getSession().setAttribute("role", "noAuth");
         }
         chain.doFilter(req, res);
     }

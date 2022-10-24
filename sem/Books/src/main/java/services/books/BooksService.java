@@ -19,7 +19,7 @@ public interface BooksService {
 
 //    public Optional<Author> findBookAuthorByAuthorId(Long id);
 
-    public void updateBookWithIncompleteParameters(Book book, String title, String price, String year, String authorId);
+    public void updateBookWithIncompleteParameters(Book book, String title, String price, String year, String authorId, String description);
 
     public List<Book> orderBooksById();
 }

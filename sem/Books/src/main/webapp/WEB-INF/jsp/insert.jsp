@@ -23,6 +23,7 @@
             <input type="text" name="year" placeholder="year of publication" id="bookYear" required>
             <input type="text" name="price" placeholder="price" id="price" required>
             <input type="file" name="image" placeholder="image" class="file" required>
+            <textarea name="descriptionBook" class="text-area"></textarea>
             <button type="submit" class="insertbutton" name="save" value="book" id="saveBook">Сохранить</button>
         </form>
         <div class="authors-div authors">
@@ -50,6 +51,7 @@
             <input type="text" name="name" placeholder="name" class="w100" required>
             <input type="text" name="surname" placeholder="surname" required>
             <input type="text" name="year" placeholder="birth year" id="authorYear" required>
+            <textarea name="descriptionAuthor" class="text-area"></textarea>
             <button type="submit" class="button-auth" name="save" value="author">Сохранить</button>
         </form>
     </div>

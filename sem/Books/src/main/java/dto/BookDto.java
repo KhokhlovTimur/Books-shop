@@ -15,6 +15,7 @@ public class BookDto {
     private Long id;
     private String title;
     private int yearOfPublication;
+    private String description;
     private String authorName;
     private String authorSurname;
     private int authorYearOfBirth;

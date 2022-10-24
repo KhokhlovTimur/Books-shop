@@ -15,4 +15,5 @@ public class Book {
     private int yearOfPublication;
     private Long authorId;
     private int price;
+    private String description;
 }
