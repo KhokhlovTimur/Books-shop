@@ -23,15 +23,15 @@
         </button>
     </div>
 
-    <form class="form upd" method="post" action="${pageContext.request.contextPath}/admin/books">
+    <form class="form upd" method="post" action="${pageContext.request.contextPath}/admin/books" enctype="multipart/form-data">
         <h3>Изменить информацию о книге</h3>
-        <input type="text" name="id" placeholder="id" class="w100" required>
+        <input type="text" name="id" placeholder="id" class="w100" id="bookUpdateId" required>
         <input type="text" name="title" placeholder="title" class="w100">
-        <input type="text" name="authorId" placeholder="authorId">
-        <input type="text" name="year" placeholder="year of publication">
-        <input type="text" name="price" placeholder="price">
-        <input type="url" name="image" placeholder="image" class="file">
-        <button type="submit" class="insertbutton">Сохранить</button>
+        <input type="text" name="authorId" placeholder="authorId" id="authorUpdateId">
+        <input type="text" name="year" placeholder="year of publication" id="updateYear">
+        <input type="text" name="price" placeholder="price" id="updatePrice">
+        <input type="file" name="image" placeholder="image" class="file">
+        <button type="submit" class="insertbutton" id="saveBook">Сохранить</button>
     </form>
 
     <table class="table fx-table">
@@ -73,7 +73,6 @@
 
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/books.js"></script>
-<script src="${pageContext.request.contextPath}/js/scroll.js"></script>
 
 <style>
     <%@include file="/css/commonBlockTable.css" %>

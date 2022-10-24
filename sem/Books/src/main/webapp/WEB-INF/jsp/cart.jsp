@@ -19,7 +19,7 @@
             <form method="post">
                 <c:forEach var="book" items="${books}">
                     <div class="block">
-                        <img class="img" src="">
+                        <img class="img" src="${pageContext.request.contextPath}/images/books/${book.id}">
                         <span class="text price"><c:out value="${book.price} ₽"></c:out></span>
                         <span class="text title"><c:out
                                 value="${book.title} | ${book.authorName} ${book.authorSurname}"></c:out></span>
@@ -48,23 +48,11 @@
 
 </c:if>
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
+
 <style>
     <%@include file="/css/cart.css" %>
 </style>
 
 </body>
 </html>
-<script>
-    $(function () {
-        $('.container').scroll(function () {
-            if ($('.container').scrollTop() !== 0) {
-                $('#top').fadeIn();
-            } else {
-                $('#top').fadeOut();
-            }
-        });
-        $('#top').click(function () {
-            $('.container').animate({scrollTop: 0}, 800);
-        });
-    });
-</script>

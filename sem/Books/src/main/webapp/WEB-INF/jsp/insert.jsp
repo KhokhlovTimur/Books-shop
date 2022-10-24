@@ -16,14 +16,14 @@
         <form action="/admin/books">
             <button type="submit" class="reverse" style="background: #f65050;">Информация о книгах</button>
         </form>
-        <form method="post" class="insert-book-form form" action="">
+        <form method="post" class="insert-book-form form" action="" enctype="multipart/form-data">
             <h2>Добавить книгу</h2>
             <input type="text" name="title" placeholder="title" class="w100" required>
-            <input type="text" name="authorId" placeholder="authorId" required>
-            <input type="text" name="year" placeholder="year of publication" required>
-            <input type="text" name="price" placeholder="price">
-            <input type="url1" name="image" placeholder="image" class="file">
-            <button type="submit" class="insertbutton" name="save" value="book">Сохранить</button>
+            <input type="text" name="authorId" placeholder="authorId" id="authorId" required>
+            <input type="text" name="year" placeholder="year of publication" id="bookYear" required>
+            <input type="text" name="price" placeholder="price" id="price" required>
+            <input type="file" name="image" placeholder="image" class="file" required>
+            <button type="submit" class="insertbutton" name="save" value="book" id="saveBook">Сохранить</button>
         </form>
         <div class="authors-div authors">
             <h2>Авторы</h2>
@@ -49,7 +49,7 @@
             <h2>Добавить автора</h2>
             <input type="text" name="name" placeholder="name" class="w100" required>
             <input type="text" name="surname" placeholder="surname" required>
-            <input type="text" name="year" placeholder="birth year" id="year" required>
+            <input type="text" name="year" placeholder="birth year" id="authorYear" required>
             <button type="submit" class="button-auth" name="save" value="author">Сохранить</button>
         </form>
     </div>

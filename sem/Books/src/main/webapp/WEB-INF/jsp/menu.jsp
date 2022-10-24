@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Пользователь
-  Date: 13.10.2022
-  Time: 8:19
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -28,7 +22,6 @@
             </form>
         </c:when>
     </c:choose>
-
     <c:if test="${sessionScope.role eq 'admin'}">
         <form action="/admin">
             <button style="background: #f65050;">Управление</button>
@@ -39,8 +32,7 @@
     <div class="container">
         <c:forEach var="book" items="${books}">
         <div>
-            <% System.out.println(request.getContextPath());%>
-            <img class="bookimg" src="<%request.getServletContext().getRealPath("images/");%>${book.id}.jpg">
+            <form action="/menu/bookInfo"><button type="submit" id="img-button" name="bookId" value="${book.id}"><img class="bookimg" src="${pageContext.request.contextPath}/images/books/${book.id}"></button></form>
             <p class="price"><c:out value="${book.price}₽"></c:out></p>
             <p class="info"><c:out value="${book.title} | ${book.authorSurname} ${book.authorName} | ${book.yearOfPublication}"></c:out>
             </p>

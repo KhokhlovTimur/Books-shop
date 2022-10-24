@@ -26,7 +26,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     private static final String SQL_DELETE_USER_BY_ID = "delete from users where id = ?";
 
     //language=SQL
-    private static final String SQL_UPDATE_USER_BY_ID = "update users set login=?, password=?, role=?, session_id=? where id=?";
+    private static final String SQL_UPDATE_USER_BY_ID = "update users set login=?, password=?, role=?, session_id=?, balance=? where id=?";
 
     private final static Function<ResultSet, User> userMapper = row ->{
         try {
@@ -35,6 +35,7 @@ public class UsersRepositoryImpl implements UsersRepository {
                     .role(row.getString("role"))
                     .login(row.getString("login"))
                     .password( row.getString("password"))
+                    .balance(row.getInt("balance"))
                     .build();
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
@@ -102,7 +103,8 @@ public class UsersRepositoryImpl implements UsersRepository {
                 preparedStatement.setString(2, user.getPassword());
                 preparedStatement.setString(3, user.getRole());
                 preparedStatement.setString(4, user.getSessionId());
-                preparedStatement.setLong(5, user.getId());
+                preparedStatement.setInt(5, user.getBalance());
+                preparedStatement.setLong(6, user.getId());
                 preparedStatement.execute();
             } catch (SQLException e) {
                 throw new IllegalArgumentException();

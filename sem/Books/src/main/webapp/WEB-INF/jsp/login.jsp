@@ -12,10 +12,10 @@
             and your password for join.
         </p>
         <input name="loginReg" class="w100" placeholder="login" required autocomplete='off'/>
-        <input name="passwordReg" type="password" placeholder="Insert Password" required/>
-        <input type="password" name="passwordReg2" placeholder="Verify Password" required/>
-        <button class="form-btn sx log-in" type="button">Log In</button>
-        <button class="form-btn dx" type="submit" name="button" value="reg">Sign Up</button>
+        <input name="passwordReg" type="password" placeholder="Insert Password" id="password1" required/>
+        <input type="password" name="passwordReg2" placeholder="Verify Password" id="password2" required/>
+        <button class="form-btn sx log-in" type="button" >Log In</button>
+        <button class="form-btn dx" type="submit" name="button" value="reg" id="reg">Sign Up</button>
     </form>
     <form class="signIn" action="/login" method="post">
         <h3>Welcome</br>Back !</h3>
@@ -27,24 +27,13 @@
         <button class="fb" name="button" value="without">Without authorization</button>
     </form>
 </div>
+
 <style><%@include file="/css/loginPage.css"%>
 </style>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/login.js"></script>
+
 </body>
 </html>
-<script>
-    $(".log-in").click(function () {
-        $('.signIn').addClass("active-dx");
-        $('.signUp').addClass("inactive-sx");
-        $('.signUp').removeClass("active-sx");
-        $('.signIn').removeClass("inactive-dx");
-    });
 
-    $(".back").click(function () {
-        $(".signUp").addClass("active-sx");
-        $(".signIn").addClass("inactive-dx");
-        $(".signIn").removeClass("active-dx");
-        $(".signUp").removeClass("inactive-sx");
-    });
-
-</script>

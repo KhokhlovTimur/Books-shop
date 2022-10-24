@@ -15,7 +15,6 @@ public class MainMenuServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(req.getServletContext().getRealPath("images"));
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, resp);
     }
 

@@ -1,25 +1,26 @@
 package controllers.servlets;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import models.Author;
 import models.Book;
-import models.User;
 import services.authors.AuthorService;
 import services.books.BooksService;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 
 import static java.util.Objects.nonNull;
 
 @WebServlet("/admin/insert")
+@MultipartConfig
 public class InsertServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,7 +30,6 @@ public class InsertServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String buttonValue = req.getParameter("save");
-
         if (buttonValue != null) {
             if (buttonValue.equals("book")) {
                 String title = req.getParameter("title");
@@ -46,13 +46,16 @@ public class InsertServlet extends HttpServlet {
                             .price(Integer.parseInt(price))
                             .build();
                     ((BooksService) getServletContext().getAttribute("booksService")).saveBook(book);
-                    try (BufferedInputStream inputStream = new BufferedInputStream(new URL(req.getParameter("image")).openStream())) {
-                        File file = new File(
-                                "..\\imagesForSite\\booksImages\\"
-                                        + book.getId() + ".png");
-                        Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    } catch (IOException e) {
-                        throw new IllegalArgumentException();
+                    if (req.getPart("image").getInputStream() instanceof FileInputStream) {
+                        try (InputStream inputStream = (req.getPart("image").getInputStream())) {
+                            new File("..\\imagesForSite\\booksImages").mkdirs();
+                            File file = new File(
+                                    "..\\imagesForSite\\booksImages\\"
+                                            + book.getId() + ".png");
+                            Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException e) {
+                            throw new IllegalArgumentException();
+                        }
                     }
                 }
             } else if (buttonValue.equals("author")) {

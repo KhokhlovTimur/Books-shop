@@ -72,13 +72,9 @@ public class LoginServlet extends HttpServlet {
                             req.setAttribute("button", null);
                             if (usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).isPresent()) {
                                 User lastUser = usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).get();
+                                lastUser.setSessionId(session.getId());
                                 session.setAttribute("role", "auth");
-                                usersService.updateUser(User.builder().
-                                        id(lastUser.getId()).
-                                        role(lastUser.getRole())
-                                        .sessionId(session.getId())
-                                        .login(lastUser.getLogin())
-                                        .password(lastUser.getPassword()).build());
+                                usersService.updateUser(lastUser);
                                 session.setAttribute("userId", lastUser.getId());
                                 session.setAttribute("user", usersService.findUserById(lastUser.getId()).get());
                                 if (usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).get().getRole().equals("admin")) {

@@ -39,7 +39,6 @@ public class ApplicationContextListener implements ServletContextListener {
 //        executeUpdateStatement(SQL_CREATE_TABLE_ORDER_BOOK);
 //        executeUpdateStatement(SQL_INSERT_ADMIN);
 //        executeUpdateStatement(SQL_INSERT_VALUES_TO_AUTHORS);
-//        executeUpdateStatement(SQL_INSERT_VALUES_TO_BOOKS);
 
         context.setAttribute("usersService",new UsersServiceImpl(new UsersRepositoryImpl()));
         context.setAttribute("booksService",new BooksServiceImpl(new BooksRepositoryImpl()));
@@ -108,8 +107,4 @@ public class ApplicationContextListener implements ServletContextListener {
             "values ('Стивен', 'Кинг', 1947),\n" +
             "       ('Дэн', 'Браун', 1964)";
 
-    private static final String SQL_INSERT_VALUES_TO_BOOKS = "insert into books (title, author_id, year_of_publication, price)\n" +
-            "values ('Стрелок', 1, 1982, 350),\n" +
-            "       ('Темная башня', 1, 2000, 550),\n" +
-            "       ('Код да винчи', 2, 2003, 700)";
 }

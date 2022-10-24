@@ -61,31 +61,7 @@
 
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/scroll.js"></script>
+
 </body>
 </html>
-<%--<script>--%>
 
-<%--    $('.hide').hide();--%>
-<%--    $('.form').hide();--%>
-<%--    $('.update').click(function () {--%>
-<%--        $('.hide').show();--%>
-<%--        $('.form').show();--%>
-<%--        $('.hide').click(function () {--%>
-<%--            $('.form').hide(500);--%>
-<%--            $('.hide').hide();--%>
-<%--        })--%>
-<%--    });--%>
-
-
-
-
-<%--    $('.hideform').hide();--%>
-<%--    $('.addbook').click(function () {--%>
-<%--        $('.hideform').show(500);--%>
-<%--        $('.form-button').click(function () {--%>
-<%--            $('.hideform').hide(1000);--%>
-<%--        })--%>
-
-<%--    })--%>
-
-<%--</script>--%>

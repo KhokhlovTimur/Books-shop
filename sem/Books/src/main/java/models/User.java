@@ -16,4 +16,5 @@ public class User {
     //noAuth, auth, admin
     private String role;
     private String sessionId;
+    private int balance;
 }

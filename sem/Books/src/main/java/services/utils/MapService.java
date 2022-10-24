@@ -65,7 +65,7 @@ public class MapService {
                 .collect(Collectors.toList());
     }
 
-    private BookDto convertBookToBookDto(Book book) {
+    public BookDto convertBookToBookDto(Book book) {
         BookDto bookDto = new BookDto();
         Author author = authorsRepository.findAuthorById(book.getAuthorId()).get();
         bookDto.setId(book.getId());

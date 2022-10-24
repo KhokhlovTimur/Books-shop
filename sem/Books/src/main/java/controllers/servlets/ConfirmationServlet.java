@@ -11,6 +11,7 @@ import models.User;
 import services.carts.CartServiceImpl;
 import services.orderBookService.OrderBookServiceImpl;
 import services.orderService.OrderService;
+import services.users.UsersService;
 import services.utils.CartSumService;
 import services.utils.HashConverter;
 
@@ -27,20 +28,31 @@ public class ConfirmationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String password = req.getParameter("confirmPassword");
-        Long userId = ((User) req.getSession().getAttribute("user")).getId();
+        User user = ((User) req.getSession().getAttribute("user"));
+
         OrderBookServiceImpl orderBookService = ((OrderBookServiceImpl) getServletContext().getAttribute("orderBookService"));
         CartServiceImpl cartService = (CartServiceImpl) getServletContext().getAttribute("cartService");
-        if (password != null && HashConverter.hashPassword(password).equals(((User) req.getSession().getAttribute("user")).getPassword())) {
-            List<Cart> carts = ((CartServiceImpl) getServletContext().getAttribute("cartService")).findAllBooks(userId);
+        CartSumService cartSumService = ((CartSumService) getServletContext().getAttribute("cartSumService"));
+        UsersService usersService = (UsersService) getServletContext().getAttribute("usersService");
+
+        if (password != null && HashConverter.hashPassword(password).equals(user.getPassword())) {
+            List<Cart> carts = cartService.findAllBooks(user.getId());
             if (carts.size() > 0) {
-                Order newOrder = Order.builder()
-                        .userId(userId)
-                        .price((long) ((CartSumService) getServletContext().getAttribute("cartSumService")).getCartSumByUserId(userId))
-                        .build();
-                ((OrderService) getServletContext().getAttribute("orderService")).saveOrder(newOrder);
-                for (Cart cart : carts) {
-                    orderBookService.saveOrderBook(newOrder.getId(), cart.getBookId());
-                    cartService.deleteCartByBookIdUserId(cart.getBookId(), userId);
+                if (cartSumService.getCartSumByUserId(user.getId()) <= user.getBalance()) {
+                    Order newOrder = Order.builder()
+                            .userId(user.getId())
+                            .price((long) cartSumService.getCartSumByUserId(user.getId()))
+                            .build();
+                    ((OrderService) getServletContext().getAttribute("orderService")).saveOrder(newOrder);
+
+                    user.setBalance(user.getBalance() - cartSumService.getCartSumByUserId(user.getId()));
+                    usersService.updateUser(user);
+                    req.getSession().setAttribute("user", user);
+
+                    for (Cart cart : carts) {
+                        orderBookService.saveOrderBook(newOrder.getId(), cart.getBookId());
+                        cartService.deleteCartByBookIdUserId(cart.getBookId(), user.getId());
+                    }
                 }
             }
             resp.sendRedirect("/cart");
