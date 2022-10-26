@@ -44,11 +44,6 @@ public class BooksServiceImpl implements BooksService {
         return booksRepository.findAllBooks();
     }
 
-//    @Override
-//    public Optional<Author> findBookAuthorByAuthorId(Long id) {
-//        return booksRepository.;
-//    }
-
     @Override
     public void updateBookWithIncompleteParameters(Book book, String title, String price, String year, String authorId, String descript) {
         Book newBook = new Book();
@@ -66,19 +61,6 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public List<Book> orderBooksById() {
         return booksRepository.orderBooksById();
-    }
-
-    @Override
-    public List<Book> findBookByFullTitle(String name) {
-        return findAllBooks().stream()
-                .filter(x -> x.getTitle().toLowerCase().equals(name.toLowerCase()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Book> findBookByNoFullTitle(String name) {
-        return findAllBooks().stream()
-                .filter(x -> x.getTitle().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT)))
-                .collect(Collectors.toList());
     }
 
 }

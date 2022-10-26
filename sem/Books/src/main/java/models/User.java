@@ -15,6 +15,6 @@ public class User {
     private String password;
     //noAuth, auth, admin
     private String role;
-    private String sessionId;
     private int balance;
+    private String email;
 }

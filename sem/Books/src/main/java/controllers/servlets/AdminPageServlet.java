@@ -42,7 +42,6 @@ public class AdminPageServlet extends HttpServlet {
                     User user = usersService.findUserById(Long.valueOf(id.toString())).get();
                     usersService.updateUser(User.builder()
                             .id(Long.valueOf(id.toString()))
-                            .sessionId(user.getSessionId())
                             .login(user.getLogin())
                             .password(user.getPassword())
                             .role(newRole).build());

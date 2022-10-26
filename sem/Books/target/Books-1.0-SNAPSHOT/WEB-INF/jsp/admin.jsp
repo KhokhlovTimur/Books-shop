@@ -4,7 +4,7 @@
 <head>
     <title>Admin</title>
 </head>
-<body>
+<body class="bb">
 <div class="container">
     <div class="block1">
 
@@ -12,10 +12,10 @@
             <button>В меню</button>
         </form>
         <form method="post" action="/admin/insert">
-            <button type="submit" style="background: #f65050;box-shadow: 4px 4px #ccc;">Добавить книгу</button>
+            <button type="submit" style="background: #f65050;">Добавить книгу/автора</button>
         </form>
         <form method="get" action="/admin/books">
-            <button style="background: #f65050; box-shadow: 4px 4px #ccc;">Информация о книгах</button>
+            <button style="background: #f65050;">Информация о книгах</button>
         </form>
 
     </div>
@@ -33,7 +33,7 @@
                     <td><c:out value="${user.id}"></c:out></td>
                     <td><c:out value="${user.login}"></c:out></td>
                     <td><c:out value="${user.role}"></c:out></td>
-                    <td><c:out value="${user.sessionId}"></c:out></td>
+                    <td><c:out value="${user.email}"></c:out></td>
                     <td style="border: 0">
                         <c:if test="${user.role eq 'auth' || user.role eq 'admin'}">
                         <select name="chooseRole" class="select">

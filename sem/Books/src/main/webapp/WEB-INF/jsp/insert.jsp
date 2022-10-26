@@ -8,13 +8,13 @@
 <div class="container">
     <div class="block1">
         <form action="/admin">
-            <button type="submit" class="reverse" style="background: #f65050;">Назад</button>
+            <button type="submit" class="reverse admin-button">Назад</button>
         </form>
         <form action="/profile">
             <button type="submit" class="reverse">В профиль</button>
         </form>
         <form action="/admin/books">
-            <button type="submit" class="reverse" style="background: #f65050;">Информация о книгах</button>
+            <button type="submit" class="reverse admin-button">Информация о книгах</button>
         </form>
         <form method="post" class="insert-book-form form" action="" enctype="multipart/form-data">
             <h2>Добавить книгу</h2>
@@ -43,17 +43,29 @@
                 </div>
             </c:forEach>
         </div>
-        <button type="button" class="show-author" onclick="showAuthor()" style="background: #f65050;">Добавить автора
+        <button type="button" class="show-author update-button admin-button" onclick="showAuthor()">Добавить автора
         </button>
-        <button type="button" class="hide-author" style="background: #f65050;"  onclick="hideClick()">Скрыть</button>
+        <button type="button" class="hide-author update-button admin-button">Скрыть</button>
         <form method="post" class="insert-author-form form" action="">
             <h2>Добавить автора</h2>
             <input type="text" name="name" placeholder="name" class="w100" required>
             <input type="text" name="surname" placeholder="surname" required>
             <input type="text" name="year" placeholder="birth year" id="authorYear" required>
-            <textarea name="descriptionAuthor" class="text-area"></textarea>
             <button type="submit" class="button-auth" name="save" value="author">Сохранить</button>
         </form>
+
+        <button type="button" class="show-author-update author-upd">Изменить автора
+        </button>
+        <button type="button" class="hide-author-update author-upd">Скрыть</button>
+        <form method="post" class="update-author-form form" action="">
+            <h2>Изменить информацию об авторе</h2>
+            <input type="text" name="updateId" placeholder="id" class="w100" id="upd-id" required>
+            <input type="text" name="updateName" placeholder="name" class="w100" required>
+            <input type="text" name="updateSurname" placeholder="surname" required>
+            <input type="text" name="updateYear" placeholder="birth year" id="authorYearUpdate" required>
+            <button type="submit" class="button-auth"  name="save" value="updateAuthor" id="updateAuthor">Сохранить</button>
+        </form>
+
     </div>
 </div>
 

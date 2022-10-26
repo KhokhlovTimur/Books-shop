@@ -22,13 +22,19 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String balance = req.getParameter("setBalance");
+        String email = req.getParameter("email");
         HttpSession session = req.getSession();
-        if(balance != null){
-            User user = ((User)session.getAttribute("user"));
+        User user = ((User) session.getAttribute("user"));
+        UsersService usersService = ((UsersService) getServletContext().getAttribute("usersService"));
+        if (balance != null && balance.replaceAll("\\s+", "").length() < 10) {
             int newBalance = Integer.parseInt(balance) + user.getBalance();
             user.setBalance(newBalance);
-            ((UsersService) getServletContext().getAttribute("usersService"))
-                    .updateUser(user);
+            usersService.updateUser(user);
+        }
+
+        if (email != null) {
+            user.setEmail(email);
+            usersService.updateUser(user);
         }
         resp.sendRedirect("/profile");
     }

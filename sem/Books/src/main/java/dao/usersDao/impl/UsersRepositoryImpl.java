@@ -14,7 +14,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     private final Connection connection = MyDriverManager.getConnection();
 
     //language=SQL
-    private static final String SQL_SAVE_USER = "insert into users(session_id, login, password, role) VALUES (?,?, ?, ?)";
+    private static final String SQL_SAVE_USER = "insert into users( login, password, role) VALUES (?, ?, ?)";
 
     //language=SQL
     private static final String SQL_FIND_USER_BY_ID = "select * from users where id = ?";
@@ -26,12 +26,12 @@ public class UsersRepositoryImpl implements UsersRepository {
     private static final String SQL_DELETE_USER_BY_ID = "delete from users where id = ?";
 
     //language=SQL
-    private static final String SQL_UPDATE_USER_BY_ID = "update users set login=?, password=?, role=?, session_id=?, balance=? where id=?";
+    private static final String SQL_UPDATE_USER_BY_ID = "update users set login=?, password=?, role=?, email=?, balance=? where id=?";
 
     private final static Function<ResultSet, User> userMapper = row ->{
         try {
             return User.builder().id(row.getLong("id"))
-                    .sessionId(row.getString("session_id"))
+                    .email(row.getString("email"))
                     .role(row.getString("role"))
                     .login(row.getString("login"))
                     .password( row.getString("password"))
@@ -45,10 +45,9 @@ public class UsersRepositoryImpl implements UsersRepository {
     public void saveUser(User user) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SAVE_USER, Statement.RETURN_GENERATED_KEYS)) {
 //            connection.setAutoCommit(false);
-            preparedStatement.setString(1, user.getSessionId());
-            preparedStatement.setString(2, user.getLogin());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getRole());
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getRole());
 
             int rows = preparedStatement.executeUpdate();
             if (rows != 1) {
@@ -102,7 +101,7 @@ public class UsersRepositoryImpl implements UsersRepository {
                 preparedStatement.setString(1, user.getLogin());
                 preparedStatement.setString(2, user.getPassword());
                 preparedStatement.setString(3, user.getRole());
-                preparedStatement.setString(4, user.getSessionId());
+                preparedStatement.setString(4, user.getEmail());
                 preparedStatement.setInt(5, user.getBalance());
                 preparedStatement.setLong(6, user.getId());
                 preparedStatement.execute();

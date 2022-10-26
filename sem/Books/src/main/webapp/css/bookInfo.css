@@ -46,7 +46,7 @@ p {
     position: relative;
     left: 550px;
     width: 600px;
-    height: 480px;
+    height: 460px;
     top: 15px;
     border-radius: 15px;
     padding: 20px 7px 10px 10px;
@@ -79,7 +79,7 @@ p {
     left: 300px;
     border-radius: 15px;
     height: 50px;
-    width: 170px;
+    width: 352px;
     cursor: pointer;
     border: 0;
     background: #2e58c4;

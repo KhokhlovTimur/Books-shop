@@ -14,7 +14,4 @@ public interface CartService {
     public List<Cart> findAllBooks(Long userId);
 
     public void deleteCartByBookIdUserId(Long bookId, Long userId);
-
-    public int getUserCartPrice(Long userId);
-
 }

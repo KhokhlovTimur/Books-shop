@@ -1,87 +1,35 @@
 package services.utils;
 
-import app.Main;
-import dao.authorsDao.AuthorsRepository;
-import dao.authorsDao.impl.AuthorsRepositoryImpl;
-import dao.booksDao.BooksRepository;
-import dao.booksDao.impl.BooksRepositoryImpl;
+import dao.utils.SearchDao;
 import dto.BookDto;
 import models.Author;
 import models.Book;
 import services.authors.AuthorService;
-import services.authors.impl.AuthorsServiceImpl;
 import services.books.BooksService;
-import services.books.impl.BooksServiceImpl;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchBooksService {
-    private BooksService booksService;
-    private AuthorService authorsService;
+    private final BooksService booksService;
+    private final AuthorService authorsService;
+    private final SearchDao searchDao;
 
-    public SearchBooksService(BooksService booksService, AuthorService authorService) {
+    public SearchBooksService(BooksService booksService, AuthorService authorService, SearchDao searchDao) {
         this.booksService = booksService;
         this.authorsService = authorService;
+        this.searchDao = searchDao;
     }
 
     public List<BookDto> findBook(String input) {
-//        String[] inputSplit = input.split(" ");
-//        List<BookDto> result = new ArrayList<>();
-//        List<String> bookInfo = Arrays.stream(inputSplit).filter(x -> x.length() > 0).collect(Collectors.toList());
-//        StringBuilder info = new StringBuilder();
-//        for(int i = 0; i < bookInfo.size(); i++){
-//
-//        }
-        if (booksService.findBookByFullTitle(input).size() > 0) {
-            return booksService.findBookByFullTitle(input).stream()
-                    .map(this::convertBookToBookDto).collect(Collectors.toList());
-        } else if (authorsService.findAuthorByName(input).size() > 0) {
-            for (Author author : authorsService.findAuthorByName(input)) {
-                return booksService.findAllBooks().stream()
-                        .filter(x -> Objects.equals(x.getAuthorId(), author.getId())).map(this::convertBookToBookDto).collect(Collectors.toList());
+        List<BookDto> bookDtoList = new ArrayList<>();
+        List<Long> ids = searchDao.getSearchResult(input);
+        if (ids.size() > 0) {
+            for (Long id : ids) {
+                bookDtoList.add(convertBookToBookDto(booksService.findBookById(id).get()));
             }
         }
-        else if(authorsService.findAuthorBySurname(input).size() > 0){
-            for (Author author : authorsService.findAuthorBySurname(input)) {
-                return (booksService.findAllBooks().stream()
-                        .filter(x -> Objects.equals(x.getAuthorId(), author.getId())).map(this::convertBookToBookDto).collect(Collectors.toList()));
-            }
-        }
-//        List<Author> authorsName = authorsService.findAuthorByName(info);
-//        List<Author> authorsSurname = authorsService.findAuthorBySurname(info);
-
-
-//        if (bookInfo.size() == 1) {
-//            for (String info : bookInfo) {
-//                List<Book> books = booksService.findBookByFullTitle(info);
-//                List<Author> authorsName = authorsService.findAuthorByName(info);
-//                List<Author> authorsSurname = authorsService.findAuthorBySurname(info);
-//
-//                if (books.size() > 0 || authorsName.size() > 0 || authorsSurname.size() > 0) {
-//                    if (authorsName.size() > 0) {
-//                        for (Author author : authorsName) {
-//                            List<BookDto> booksList = (booksService.findAllBooks().stream()
-//                                    .filter(x -> Objects.equals(x.getAuthorId(), author.getId())).map(this::convertBookToBookDto).collect(Collectors.toList()));
-//                            result.addAll(booksList);
-//
-//                        }
-//                    }
-//                    else if(authorsSurname.size() > 0){
-//                        for (Author author : authorsSurname) {
-//                            List<BookDto> booksList = (booksService.findAllBooks().stream()
-//                                    .filter(x -> Objects.equals(x.getAuthorId(), author.getId())).map(this::convertBookToBookDto).collect(Collectors.toList()));
-//                            result.addAll(booksList);
-//
-//                        }
-//                    }
-//                    else {
-//                        result.addAll(books.stream().map(this::convertBookToBookDto).collect(Collectors.toList()));
-//                    }
-//                }
-//            }
-//        }
-        return Collections.emptyList();
+        return bookDtoList;
     }
 
     private BookDto convertBookToBookDto(Book book) {

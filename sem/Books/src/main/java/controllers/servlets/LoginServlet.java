@@ -11,35 +11,26 @@ import services.users.UsersService;
 import services.utils.HashConverter;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import static java.util.Objects.nonNull;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private UsersService usersService;
-
-    @Override
-    public void init() throws ServletException {
-        usersService = (UsersService) getServletContext().getAttribute("usersService");
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UsersService usersService = (UsersService) getServletContext().getAttribute("usersService");
         String button = req.getParameter("button");
         if (button != null && button.equals("exit")) {
             req.getSession().setAttribute("role", null);
             req.getSession().setAttribute("role", "noAuth");
             req.setAttribute("button", null);
         }
-        getServletContext().getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String button = req.getParameter("button");
         HttpSession session = req.getSession();
         if (nonNull(button)) {
             switch (button) {
@@ -53,7 +44,6 @@ public class LoginServlet extends HttpServlet {
                             req.setAttribute("button", null);
                             if (!usersService.findUserByLoginAndPassw(loginReg, HashConverter.hashPassword(passwordReg)).isPresent() && !usersService.findUserByLogin(loginReg).isPresent()) {
                                 usersService.saveUser(User.builder()
-                                        .sessionId(session.getId())
                                         .login(loginReg)
                                         .password(HashConverter.hashPassword(passwordReg))
                                         .role("auth").build());
@@ -71,12 +61,10 @@ public class LoginServlet extends HttpServlet {
                             session.setAttribute("password", passwordLog);
                             req.setAttribute("button", null);
                             if (usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).isPresent()) {
-                                User lastUser = usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).get();
-                                lastUser.setSessionId(session.getId());
+                                User user = usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).get();
                                 session.setAttribute("role", "auth");
-                                usersService.updateUser(lastUser);
-                                session.setAttribute("userId", lastUser.getId());
-                                session.setAttribute("user", usersService.findUserById(lastUser.getId()).get());
+                                session.setAttribute("userId", user.getId());
+                                session.setAttribute("user", usersService.findUserById(user.getId()).get());
                                 if (usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).get().getRole().equals("admin")) {
                                     session.setAttribute("role", "admin");
                                 }
@@ -90,9 +78,6 @@ public class LoginServlet extends HttpServlet {
                     }
                     break;
                 case "without":
-                    if (!usersService.findUserBySessionId(session.getId()).isPresent()) {
-                        usersService.saveUser(User.builder().sessionId(session.getId()).role("noAuth").build());
-                    }
                     session.setAttribute("role", "noAuth");
                     req.setAttribute("button", null);
                     resp.sendRedirect("/menu");

@@ -16,16 +16,6 @@
     </c:otherwise>
 </c:choose>
 
-<c:choose>
-    <c:when test="${requestScope.poisk ne null}">
-        <c:set var="books" value="${applicationScope.searchService.findBook(requestScope.poisk)}"></c:set>
-    </c:when>
-    <c:otherwise>
-        <c:set var="books" value="${applicationScope.sortService.sortBy(requestScope.sortBy)}"></c:set>
-    </c:otherwise>
-</c:choose>
-
-
 <div class="block1">
     <c:choose>
         <c:when test="${userRole eq 'auth' || userRole eq 'admin'}">
@@ -49,7 +39,7 @@
     </c:if>
     <form>
         <button type="submit" class="invisible" name="poisk"></button>
-            <input  type="text" placeholder="Поиск..." name="search" class="search">
+        <input type="text" placeholder="Поиск..." name="search" class="search">
     </form>
 
     <form action="/menu">
@@ -63,6 +53,19 @@
         <input class="ok" type="submit" value="ок" name="isSorted">
     </form>
 </div>
+
+<c:choose>
+    <c:when test="${requestScope.poisk ne null}">
+        <c:set var="books" value="${applicationScope.searchService.findBook(requestScope.poisk)}"></c:set>
+    </c:when>
+    <c:when test="${requestScope.sortBy ne null}">
+        <c:set var="books" value="${applicationScope.sortService.sortBy(requestScope.sortBy)}"></c:set>
+    </c:when>
+    <c:otherwise>
+        <c:set var="books" value="${applicationScope.mapService.convertAllBooksToBooksDtoFromBooksSortById()}"></c:set>
+    </c:otherwise>
+</c:choose>
+
 <div class="container">
     <c:forEach var="book" items="${books}">
     <div>
@@ -73,7 +76,7 @@
         </form>
         <p class="price"><c:out value="${book.price}₽"></c:out></p>
         <p class="info"><c:out
-                value="${book.title} | ${book.authorSurname} ${book.authorName} | ${book.yearOfPublication}"></c:out>
+                value="${book.title} | ${book.authorName} ${book.authorSurname} | ${book.yearOfPublication}"></c:out>
         </p>
         <c:choose>
         <c:when test="${userRole eq 'noAuth'}">

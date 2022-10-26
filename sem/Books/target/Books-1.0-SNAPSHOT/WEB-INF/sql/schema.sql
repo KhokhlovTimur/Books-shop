@@ -19,10 +19,10 @@ create table if not exists books
 create table if not exists users
 (
     id         bigserial primary key,
-    session_id varchar(40),
     login      varchar(30),
     password   varchar(50),
     role       varchar(15),
+    email varchar(40) default 'Не указан',
     balance integer
 );
 
@@ -47,3 +47,4 @@ create table if not exists order_book
     book_id  bigint references books (id) on delete cascade,
     order_id bigint references orders (id) on delete cascade
 );
+

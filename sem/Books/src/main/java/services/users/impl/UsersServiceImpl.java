@@ -50,16 +50,6 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Optional<User> findUserBySessionId(String id) {
-        for(User user: usersRepository.findAllUsers()){
-            if(user.getSessionId() != null && user.getSessionId().equals(id)){
-                return Optional.of(user);
-            }
-        }
-        return Optional.empty();
-    }
-
-    @Override
     public Optional<User> findUserByLogin(String login) {
         for(User user: usersRepository.findAllUsers()){
             if(user.getLogin() != null && user.getLogin().equals(login)){

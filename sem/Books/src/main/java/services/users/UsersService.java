@@ -18,7 +18,5 @@ public interface UsersService {
 
     public void deleteUser(Long id);
 
-    public Optional<User> findUserBySessionId(String id);
-
     public Optional<User> findUserByLogin(String login);
 }

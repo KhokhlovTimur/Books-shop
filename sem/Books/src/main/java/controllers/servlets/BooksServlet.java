@@ -19,6 +19,15 @@ import java.nio.file.StandardCopyOption;
 public class BooksServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String sortBy = req.getParameter("sortBook");
+        if (sortBy != null) {
+            req.setAttribute("sortBook", sortBy);
+        }
+        String search = req.getParameter("poiskBook");
+        String input = req.getParameter("searchBook");
+        if (search != null && input != null) {
+            req.setAttribute("poiskBook", input);
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/books.jsp").forward(req, resp);
     }
 

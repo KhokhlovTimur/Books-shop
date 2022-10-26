@@ -34,7 +34,9 @@ public class AuthorsServiceImpl implements AuthorService {
 
     @Override
     public void updateAuthor(Author author) {
-        authorsRepository.updateAuthor(author);
+        if (authorsRepository.findAuthorById(author.getId()).isPresent()) {
+            authorsRepository.updateAuthor(author);
+        }
     }
 
     @Override
@@ -42,31 +44,31 @@ public class AuthorsServiceImpl implements AuthorService {
         return authorsRepository.findAllAuthors();
     }
 
-    @Override
-    public List<Author> findAuthorBySurname(String surname) {
-        return findAllAuthors().stream()
-                .filter(x->x.getSurname().toLowerCase(Locale.ROOT).equals(surname.toLowerCase(Locale.ROOT)))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Author> findAuthorByNoFullSurname(String surname) {
-        return findAllAuthors().stream()
-                .filter(x->x.getSurname().toLowerCase(Locale.getDefault()).contains(surname.toLowerCase(Locale.getDefault())))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Author> findAuthorByName(String name) {
-        return findAllAuthors().stream()
-                .filter(x -> x.getName().toLowerCase().equals(name.toLowerCase()))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Author> findAuthorByNoFullName(String name) {
-        return findAllAuthors().stream()
-                .filter(x -> x.getName().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT)))
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public List<Author> findAuthorBySurname(String surname) {
+//        return findAllAuthors().stream()
+//                .filter(x->x.getSurname().toLowerCase(Locale.ROOT).equals(surname.toLowerCase(Locale.ROOT)))
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<Author> findAuthorByNoFullSurname(String surname) {
+//        return findAllAuthors().stream()
+//                .filter(x->x.getSurname().toLowerCase(Locale.getDefault()).contains(surname.toLowerCase(Locale.getDefault())))
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<Author> findAuthorByName(String name) {
+//        return findAllAuthors().stream()
+//                .filter(x -> x.getName().toLowerCase().equals(name.toLowerCase()))
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<Author> findAuthorByNoFullName(String name) {
+//        return findAllAuthors().stream()
+//                .filter(x -> x.getName().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT)))
+//                .collect(Collectors.toList());
+//    }
 }

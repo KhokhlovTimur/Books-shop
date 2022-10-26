@@ -6,6 +6,7 @@
 
 </head>
 <body>
+
 <div class="container">
 
     <div class="block1">
@@ -18,12 +19,19 @@
         <form method="get" action="/admin">
             <button type="submit" style="background: #f65050;">Назад</button>
         </form>
-        <button type="button" class="hide-form" onclick="clickHide()" style="background: #f65050;">Скрыть форму</button>
-        <button type="button" class="show-form" onclick="clickShow()" style="background: #f65050;">Показать форму
+        <button type="button" class="hide-form admin-butt" onclick="clickHide()" style="background: #f65050;">Скрыть форму</button>
+        <button type="button" class="show-form admin-butt" onclick="clickShow()" style="background: #f65050;">Показать форму
         </button>
+
+        <form>
+            <button type="submit" class="invisible" name="poiskBook"></button>
+            <input type="text" placeholder="Поиск..." name="searchBook" class="search">
+        </form>
+
     </div>
 
-    <form class="form upd" method="post" action="${pageContext.request.contextPath}/admin/books" enctype="multipart/form-data">
+    <form class="form upd" method="post" action="${pageContext.request.contextPath}/admin/books"
+          enctype="multipart/form-data">
         <h3>Изменить информацию о книге</h3>
         <input type="text" name="id" placeholder="id" class="w100" id="bookUpdateId" required>
         <input type="text" name="title" placeholder="title" class="w100">
@@ -38,24 +46,62 @@
     <table class="table fx-table">
         <thead>
         <tr>
-            <th></th>
-            <th width="10px">Book id</th>
-            <th>title</th>
-            <th>author name</th>
-            <th>surname</th>
-            <th>price</th>
-            <th>year of publ</th>
+            <th>Sort by -></th>
+            <th>
+                <form>
+                    <button type="submit" class="sort-button" name="sortBook" value="byId">book id</button>
+                </form>
+            </th>
+            <th>
+                <form>
+                    <button type="submit" class="sort-button" name="sortBook" value="byTitle">title</button>
+                </form>
+            </th>
+            <th>
+                <form>
+                    <button type="submit" class="sort-button" name="sortBook" value="byName">author name</button>
+                </form>
+            </th>
+            <th>
+                <form>
+                    <button type="submit" class="sort-button" name="sortBook" value="bySurname">surname</button>
+                </form>
+            </th>
+            <th>
+                <form>
+                    <button type="submit" class="sort-button" name="sortBook" value="byPrice">price</button>
+                </form>
+            </th>
+            <th>
+                <form>
+                    <button type="submit" class="sort-button" name="sortBook" value="byYear">year of publ</button>
+                </form>
+            </th>
         </tr>
         </thead>
         <tbody>
+
+        <c:choose>
+            <c:when test="${requestScope.poiskBook ne null}">
+                <c:set var="books" value="${applicationScope.searchService.findBook(requestScope.poiskBook)}"></c:set>
+            </c:when>
+            <c:when test="${requestScope.sortBook ne null}">
+                <c:set var="books"
+                       value="${applicationScope.sortService.sortBooksAdminPage(requestScope.sortBook)}"></c:set>
+            </c:when>
+            <c:otherwise>
+                <c:set var="books"
+                       value="${applicationScope.mapService.convertAllBooksToBooksDtoFromBooksSortById()}"></c:set>
+            </c:otherwise>
+        </c:choose>
+
         <form method="post" action="/admin/books">
-            <c:set var="books" value="${applicationScope.mapService.convertAllBooksToBooksDtoFromBooksSortById()}"></c:set>
             <c:forEach var="book" items="${books}">
                 <tr>
                     <td>
                         <label class="label">
-                        <input type="checkbox" name="checkBookId" value="${book.id}" class="checkbox">
-                    </label>
+                            <input type="checkbox" name="checkBookId" value="${book.id}" class="checkbox">
+                        </label>
                     </td>
                     <td><c:out value="${book.id}"></c:out></td>
                     <td><c:out value="${book.title}"></c:out></td>

@@ -70,4 +70,57 @@ public class SortService {
         return mapService.convertAllBooksToBooksDtoFromBooksSortById();
     }
 
+    public List<BookDto> sortBooksAdminPage(String sortBy){
+        switch (sortBy){
+            case "byName":
+                return sortBooksByName();
+            case "bySurname":
+                return sortBooksBySurname();
+            case "byYear":
+                return sortBooksByYear();
+            case "byPrice":
+                return sortBooksByAscendingPrice();
+            case "byTitle":
+                return sortBooksFromAtoZ();
+            case "byId":
+                return mapService.convertAllBooksToBooksDtoFromBooksSortById();
+        }
+        return mapService.convertAllBooksToBooksDtoFromBooksSortById();
+    }
+
+    private List<BookDto> sortBooksByName(){
+        List<BookDto> bookDtoList = mapService.convertAllBooksToBooksDtoFromBooksSortById();
+        bookDtoList.sort(new Comparator<BookDto>() {
+            @Override
+            public int compare(BookDto o1, BookDto o2) {
+                return o1.getAuthorName().compareTo(o2.getAuthorName());
+            }
+        });
+        return bookDtoList;
+    }
+
+    private List<BookDto> sortBooksBySurname(){
+        List<BookDto> bookDtoList = mapService.convertAllBooksToBooksDtoFromBooksSortById();
+        bookDtoList.sort(new Comparator<BookDto>() {
+            @Override
+            public int compare(BookDto o1, BookDto o2) {
+                return o1.getAuthorSurname().compareTo(o2.getAuthorSurname());
+            }
+        });
+        return bookDtoList;
+    }
+
+    private List<BookDto> sortBooksByYear(){
+        List<BookDto> bookDtoList = mapService.convertAllBooksToBooksDtoFromBooksSortById();
+        bookDtoList.sort(new Comparator<BookDto>() {
+            @Override
+            public int compare(BookDto o1, BookDto o2) {
+                return o1.getYearOfPublication() - o2.getYearOfPublication();
+            }
+        });
+        return bookDtoList;
+    }
+
+
+
 }

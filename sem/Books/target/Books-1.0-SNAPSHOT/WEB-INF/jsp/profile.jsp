@@ -5,13 +5,25 @@
     <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 </head>
 <body>
-<h1 style="margin: 10px 10px;">Личный кабинет ${sessionScope.user.login}</h1>
 <c:set var="userRole" value="${applicationScope.usersService.findUserById(sessionScope.user.id).get().role}"></c:set>
-<span class="balance">
+
+
+<div class="container2">
+
+    <div class="info-block">
+        <button type="button" class="add-email">+</button>
+        <button type="button" class="add-email2">+</button>
+        <form method="post"><input type="email" name="email" placeholder="email..." id="email"><button type="submit" id="hidden"></button></form>
+        <span class="login">Личный кабинет <em>${sessionScope.user.login}</em></span>
+    <span class="balance">
             Баланс: ${applicationScope.usersService.findUserById(sessionScope.user.id).get().balance}₽
         </span>
 
-<div class="container2">
+        <span class="email">
+            e-mail: ${applicationScope.usersService.findUserById(sessionScope.user.id).get().email}
+        </span>
+
+    </div>
     <div class="block1">
         <form action="/login" method="get">
             <button name="button" value="exit">Выйти</button>
@@ -22,11 +34,11 @@
         <form action="/cart" method="get">
             <button type="submit">Корзина</button>
         </form>
-        <button name="button" type="button" class="history">История покупок</button>
-        <button name="button" type="button" class="historyhide">Скрыть историю</button>
+        <button name="button" type="button" class="history" onclick="showH()">История покупок</button>
+        <button name="button" type="button" class="historyhide" onclick="hideHis()">Скрыть историю</button>
 
         <form action="/profile" method="post">
-            <input type="text" name="setBalance" class="balance-input" placeholder="пополнить">
+            <input type="text" name="setBalance" class="balance-input" id="bb" placeholder="пополнить">
             <button type="submit" style="width: 0px; opacity: 0; position:absolute;" class="hh"></button>
             <button type="button" style=" left: 165px" class="subm">Скрыть</button>
             <button type="button" class="balance-button">Пополнить</button>

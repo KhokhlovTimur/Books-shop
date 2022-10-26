@@ -63,3 +63,7 @@
     font-size: 15px;
     user-select: none;
 }
+
+.admin-button{
+    background: #f65050;
+}

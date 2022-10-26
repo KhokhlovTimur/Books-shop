@@ -7,6 +7,7 @@ import dao.booksDao.impl.BooksRepositoryImpl;
 import dao.cartsDao.impl.CartRepositoryImpl;
 import dao.ordersDao.impl.OrderRepositoryImpl;
 import dao.usersDao.impl.UsersRepositoryImpl;
+import dao.utils.SearchDao;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -44,7 +45,7 @@ public class ApplicationContextListener implements ServletContextListener {
         context.setAttribute("booksService",new BooksServiceImpl(booksRepository));
         context.setAttribute("authorsService", new AuthorsServiceImpl(new AuthorsRepositoryImpl()));
         context.setAttribute("mapService", mapService);
-        context.setAttribute("searchService", new SearchBooksService(new BooksServiceImpl(booksRepository), new AuthorsServiceImpl(new AuthorsRepositoryImpl())));
+        context.setAttribute("searchService", new SearchBooksService(new BooksServiceImpl(booksRepository), new AuthorsServiceImpl(new AuthorsRepositoryImpl()), new SearchDao()));
         context.setAttribute("sortService", new SortService(mapService));
         context.setAttribute("cartService", new CartServiceImpl(new CartRepositoryImpl()));
         context.setAttribute("orderService", new OrderServiceImpl(new OrderRepositoryImpl()));
@@ -60,14 +61,15 @@ public class ApplicationContextListener implements ServletContextListener {
         }
     }
 
-    private static final String SQL_CREATE_TABLE_USERS = "create table if not exists users \n" +
+    private static final String SQL_CREATE_TABLE_USERS = "create table if not exists users\n" +
             "(\n" +
-            "    id         bigserial          primary key,\n" +
-            "    session_id varchar(40) ,\n" +
+            "    id         bigserial primary key,\n" +
             "    login      varchar(30),\n" +
             "    password   varchar(50),\n" +
-            "    role       varchar(15)\n" +
-            ")";
+            "    role       varchar(15),\n" +
+            "    email varchar(40) default 'Не указан',\n" +
+            "    balance integer\n" +
+            ");";
     private static final String SQL_INSERT_ADMIN = "insert into users(login, password, role) VALUES\n" +
             "    ('admin', '" + HashConverter.hashPassword("admin") + "','admin')";
 

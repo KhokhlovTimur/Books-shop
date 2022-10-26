@@ -25,7 +25,6 @@ public class MainMenuServlet extends HttpServlet {
         String input = req.getParameter("search");
         if(search != null && input != null){
             req.setAttribute("poisk", input);
-            System.out.println(1);
         }
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, resp);
     }
