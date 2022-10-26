@@ -16,6 +16,16 @@
     </c:otherwise>
 </c:choose>
 
+<c:choose>
+    <c:when test="${requestScope.poisk ne null}">
+        <c:set var="books" value="${applicationScope.searchService.findBook(requestScope.poisk)}"></c:set>
+    </c:when>
+    <c:otherwise>
+        <c:set var="books" value="${applicationScope.sortService.sortBy(requestScope.sortBy)}"></c:set>
+    </c:otherwise>
+</c:choose>
+
+
 <div class="block1">
     <c:choose>
         <c:when test="${userRole eq 'auth' || userRole eq 'admin'}">
@@ -37,8 +47,22 @@
             <button style="background: #f65050;">Управление</button>
         </form>
     </c:if>
+    <form>
+        <button type="submit" class="invisible" name="poisk"></button>
+            <input  type="text" placeholder="Поиск..." name="search" class="search">
+    </form>
+
+    <form action="/menu">
+        <select name="sortBy" class="sort-selector">
+            <option value="none">Сортировать по</option>
+            <option value="priceAscend">возрастанию цены</option>
+            <option value="priceDescend">убыванию цены</option>
+            <option value="az">от а до я</option>
+            <option value="za">от я до а</option>
+        </select>
+        <input class="ok" type="submit" value="ок" name="isSorted">
+    </form>
 </div>
-<c:set var="books" value="${applicationScope.mapService.convertAllBooksToBooksDtoFromBooks()}"></c:set>
 <div class="container">
     <c:forEach var="book" items="${books}">
     <div>

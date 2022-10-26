@@ -1,12 +1,13 @@
-package services.orderBookService;
+package services.orderBookService.impl;
 
 import dao.orderBookDao.OrderBookRepository;
 import models.OrderBook;
+import services.orderBookService.OrderBookService;
 
 import java.util.List;
 import java.util.Objects;
 
-public class OrderBookServiceImpl implements OrderBookService{
+public class OrderBookServiceImpl implements OrderBookService {
     private final OrderBookRepository orderBookRepository;
     public OrderBookServiceImpl(OrderBookRepository orderBookRepository){
         this.orderBookRepository = orderBookRepository;

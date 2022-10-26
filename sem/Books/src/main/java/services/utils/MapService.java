@@ -60,8 +60,14 @@ public class MapService {
                 .collect(Collectors.toList());
     }
 
-    public List<BookDto> convertAllBooksToBooksDtoFromBooks() {
+    public List<BookDto> convertAllBooksToBooksDtoFromBooksSortById() {
         return booksRepository.orderBooksById().stream()
+                .map(this::convertBookToBookDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<BookDto> convertAllBooksToBooksDtoFromBooks(){
+        return booksRepository.findAllBooks().stream()
                 .map(this::convertBookToBookDto)
                 .collect(Collectors.toList());
     }

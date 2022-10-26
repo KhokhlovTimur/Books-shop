@@ -15,6 +15,7 @@
     width: 150px;
     height: 60%;
     font-size: 14px;
+    box-shadow: 4px 4px #ccc;
     color: white;
     vertical-align: center;
     background: #2e58c4;

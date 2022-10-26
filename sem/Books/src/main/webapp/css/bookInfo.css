@@ -75,7 +75,7 @@ p {
 
 .to-cart-button, .to-menu {
     position: absolute;
-    bottom: 54px;
+    bottom: 25px;
     left: 300px;
     border-radius: 15px;
     height: 50px;

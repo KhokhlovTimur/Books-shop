@@ -1,12 +1,13 @@
-package services.users;
+package services.users.impl;
 
 import dao.usersDao.UsersRepository;
 import models.User;
+import services.users.UsersService;
 
 import java.util.List;
 import java.util.Optional;
 
-public class UsersServiceImpl implements UsersService{
+public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
 
     public UsersServiceImpl(UsersRepository usersRepository){

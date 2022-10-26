@@ -5,12 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import models.Cart;
 import models.User;
-import services.carts.CartServiceImpl;
+import services.carts.impl.CartServiceImpl;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/cart")
 public class CartsServlet extends HttpServlet {

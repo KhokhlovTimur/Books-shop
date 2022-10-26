@@ -20,6 +20,9 @@ public class BooksRepositoryImpl implements BooksRepository {
     private static final String SQL_FIND_BOOK_BY_ID = "select * from books where id = ?";
 
     //language=SQL
+    private static final String SQL_FIND_BOOK_BY_TITLE = "select * from books where title = ?";
+
+    //language=SQL
     private static final String SQL_FIND_ALL_BOOKS = "select * from books";
 
     //language=SQL
@@ -148,5 +151,22 @@ public class BooksRepositoryImpl implements BooksRepository {
             throw new IllegalArgumentException(e);
         }
         return books;
+    }
+
+    @Override
+    public Optional<Book> findBookByTitle(String title) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BOOK_BY_ID)) {
+
+            statement.setString(1, title);
+            statement.execute();
+
+            ResultSet book = statement.executeQuery();
+            if (book.next()) {
+                return Optional.of(bookMapper.apply(book));
+            }
+        } catch (SQLException e) {
+            throw new IllegalArgumentException();
+        }
+        return Optional.empty();
     }
 }

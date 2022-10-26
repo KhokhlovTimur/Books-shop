@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.User;
+import org.w3c.dom.ls.LSOutput;
 import services.carts.CartService;
 
 import java.io.IOException;
@@ -15,6 +16,17 @@ public class MainMenuServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String sortBy = req.getParameter("sortBy");
+        String isSorted = req.getParameter("isSorted");;
+        if(isSorted != null && sortBy != null){
+            req.setAttribute("sortBy", sortBy);
+        }
+        String search = req.getParameter("poisk");
+        String input = req.getParameter("search");
+        if(search != null && input != null){
+            req.setAttribute("poisk", input);
+            System.out.println(1);
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, resp);
     }
 

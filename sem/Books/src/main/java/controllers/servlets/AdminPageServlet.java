@@ -30,11 +30,18 @@ public class AdminPageServlet extends HttpServlet {
         if (roles != null) {
             for (String role : roles) {
                 if (!role.equals("none")) {
-                    String id = String.valueOf(role.charAt(0));
-                    String newRole = role.substring(1);
-                    User user = usersService.findUserById(Long.valueOf(id)).get();
+                    StringBuilder id = new StringBuilder();
+                    int index = 0;
+                    for(int i = 0; i < role.length(); i++){
+                        if(Character.isDigit(role.charAt(i))){
+                            id.append(role.charAt(i));
+                            index++;
+                        }
+                    }
+                    String newRole = role.substring(index);
+                    User user = usersService.findUserById(Long.valueOf(id.toString())).get();
                     usersService.updateUser(User.builder()
-                            .id(Long.valueOf(id))
+                            .id(Long.valueOf(id.toString()))
                             .sessionId(user.getSessionId())
                             .login(user.getLogin())
                             .password(user.getPassword())

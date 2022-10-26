@@ -1,12 +1,13 @@
-package services.orderService;
+package services.orderService.impl;
 
 import dao.ordersDao.OrderRepository;
 import models.Order;
+import services.orderService.OrderService;
 
 import java.util.List;
 import java.util.Optional;
 
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     public OrderServiceImpl(OrderRepository orderRepository){
         this.orderRepository = orderRepository;

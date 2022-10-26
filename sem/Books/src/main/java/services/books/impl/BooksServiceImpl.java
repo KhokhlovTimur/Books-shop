@@ -1,12 +1,13 @@
-package services.books;
+package services.books.impl;
 
 import dao.booksDao.BooksRepository;
 import lombok.Lombok;
 import models.Author;
 import models.Book;
+import services.books.BooksService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class BooksServiceImpl implements BooksService {
     private final BooksRepository booksRepository;
@@ -53,10 +54,10 @@ public class BooksServiceImpl implements BooksService {
         Book newBook = new Book();
 
         newBook.setId(book.getId());
-        newBook.setTitle(title != null && title.length() > 0? title : book.getTitle());
+        newBook.setTitle(title != null && title.length() > 0 ? title : book.getTitle());
         newBook.setPrice(price != null && price.length() > 0 ? Integer.parseInt(price) : book.getPrice());
-        newBook.setAuthorId(authorId != null && authorId.length() > 0 ?  Long.valueOf(authorId):  book.getAuthorId());
-        newBook.setYearOfPublication(year != null && year.length() > 0?  Integer.parseInt(year) :  book.getYearOfPublication());
+        newBook.setAuthorId(authorId != null && authorId.length() > 0 ? Long.valueOf(authorId) : book.getAuthorId());
+        newBook.setYearOfPublication(year != null && year.length() > 0 ? Integer.parseInt(year) : book.getYearOfPublication());
         newBook.setDescription(descript != null ? descript : book.getDescription());
 
         this.booksRepository.updateBook(newBook);
@@ -66,4 +67,18 @@ public class BooksServiceImpl implements BooksService {
     public List<Book> orderBooksById() {
         return booksRepository.orderBooksById();
     }
+
+    @Override
+    public List<Book> findBookByFullTitle(String name) {
+        return findAllBooks().stream()
+                .filter(x -> x.getTitle().toLowerCase().equals(name.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Book> findBookByNoFullTitle(String name) {
+        return findAllBooks().stream()
+                .filter(x -> x.getTitle().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT)))
+                .collect(Collectors.toList());
+    }
+
 }

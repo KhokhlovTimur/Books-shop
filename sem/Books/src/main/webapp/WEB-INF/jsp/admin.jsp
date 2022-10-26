@@ -12,10 +12,10 @@
             <button>В меню</button>
         </form>
         <form method="post" action="/admin/insert">
-            <button type="submit" style="background: #f65050;">Добавить книгу</button>
+            <button type="submit" style="background: #f65050;box-shadow: 4px 4px #ccc;">Добавить книгу</button>
         </form>
         <form method="get" action="/admin/books">
-            <button style="background: #f65050;">Информация о книгах</button>
+            <button style="background: #f65050; box-shadow: 4px 4px #ccc;">Информация о книгах</button>
         </form>
 
     </div>
@@ -41,7 +41,6 @@
                             <option value="${user.id}admin">Admin</option>
                         </select>
                     </td>
-                    фывфв
                     </c:if>
                 </tr>
             </c:forEach>

@@ -17,6 +17,7 @@ body{
     color: #ec7b7b;
     border-radius: 20px;
     padding: 20px 20px;
+    box-shadow: 4px 4px #ccc;
 }
 .alert button{
     left: 30%;
@@ -26,6 +27,7 @@ body{
     border-radius: 10px;
     position: absolute;
     bottom: 10px;
+    box-shadow: 4px 4px #ccc;
     background: #879cd0;
     cursor: pointer;
 }

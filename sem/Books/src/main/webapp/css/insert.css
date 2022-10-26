@@ -78,6 +78,7 @@ h2 {
 .reverse, .hide-book, .show-book{
     position: relative;
     float: left;
+    box-shadow: 4px 4px #ccc;
 }
 
 .insertbutton, .button-auth {
@@ -86,6 +87,7 @@ h2 {
     height: 25px;
     border-radius: 4px;
     margin: 20px 10px 40px 20px;
+    box-shadow: 4px 4px #ccc;
 
 }
 
@@ -97,6 +99,7 @@ h2 {
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s linear;
+    box-shadow: 4px 4px #ccc;
 }
 
 .insertbutton:hover {

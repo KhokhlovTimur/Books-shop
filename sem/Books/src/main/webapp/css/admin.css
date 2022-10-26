@@ -15,7 +15,10 @@
     background-color: #eee;
     border-radius: 5px;
     box-shadow: 4px 4px #ccc;
+    letter-spacing: inherit;
+    word-spacing: inherit;
 }
+
 
 body{
     background: #fdfbf5;
@@ -28,6 +31,7 @@ body{
 
 .bt{
     background: #f65050;
+    box-shadow: 4px 4px #ccc;
 }
 
 .update-button {
@@ -38,6 +42,7 @@ body{
     margin-bottom: 10px;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
+    box-shadow: 4px 4px #ccc;
     cursor: pointer;
     border: 1px #ced9ff solid;
     border-radius: 10px;

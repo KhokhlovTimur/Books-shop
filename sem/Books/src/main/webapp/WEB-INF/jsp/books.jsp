@@ -49,7 +49,7 @@
         </thead>
         <tbody>
         <form method="post" action="/admin/books">
-            <c:set var="books" value="${applicationScope.mapService.convertAllBooksToBooksDtoFromBooks()}"></c:set>
+            <c:set var="books" value="${applicationScope.mapService.convertAllBooksToBooksDtoFromBooksSortById()}"></c:set>
             <c:forEach var="book" items="${books}">
                 <tr>
                     <td>

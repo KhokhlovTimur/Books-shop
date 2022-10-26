@@ -15,4 +15,13 @@ public interface AuthorService {
     public void updateAuthor(Author author);
 
     public List<Author> findAllAuthors();
+
+    public List<Author> findAuthorBySurname(String surname);
+
+    public List<Author> findAuthorByNoFullSurname(String surname);
+
+    public List<Author> findAuthorByName(String name);
+
+    public List<Author> findAuthorByNoFullName(String name);
 }
+

@@ -1,5 +1,6 @@
 package controllers.listeners;
 
+import dao.booksDao.BooksRepository;
 import dao.orderBookDao.OrderBookRepositoryImpl;
 import dao.authorsDao.impl.AuthorsRepositoryImpl;
 import dao.booksDao.impl.BooksRepositoryImpl;
@@ -11,15 +12,13 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import providers.MyDriverManager;
-import services.utils.CartSumService;
-import services.utils.HashConverter;
-import services.utils.MapService;
-import services.authors.AuthorsServiceImpl;
-import services.books.BooksServiceImpl;
-import services.carts.CartServiceImpl;
-import services.orderBookService.OrderBookServiceImpl;
-import services.orderService.OrderServiceImpl;
-import services.users.UsersServiceImpl;
+import services.utils.*;
+import services.authors.impl.AuthorsServiceImpl;
+import services.books.impl.BooksServiceImpl;
+import services.carts.impl.CartServiceImpl;
+import services.orderBookService.impl.OrderBookServiceImpl;
+import services.orderService.impl.OrderServiceImpl;
+import services.users.impl.UsersServiceImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,15 +38,18 @@ public class ApplicationContextListener implements ServletContextListener {
 //        executeUpdateStatement(SQL_CREATE_TABLE_ORDER_BOOK);
 //        executeUpdateStatement(SQL_INSERT_ADMIN);
 //        executeUpdateStatement(SQL_INSERT_VALUES_TO_AUTHORS);
-
+        BooksRepository booksRepository = new BooksRepositoryImpl();
+        MapService mapService = new MapService(booksRepository, new AuthorsRepositoryImpl(), new CartRepositoryImpl(), new OrderBookRepositoryImpl(), new OrderRepositoryImpl());
         context.setAttribute("usersService",new UsersServiceImpl(new UsersRepositoryImpl()));
-        context.setAttribute("booksService",new BooksServiceImpl(new BooksRepositoryImpl()));
+        context.setAttribute("booksService",new BooksServiceImpl(booksRepository));
         context.setAttribute("authorsService", new AuthorsServiceImpl(new AuthorsRepositoryImpl()));
-        context.setAttribute("mapService", new MapService(new BooksRepositoryImpl(), new AuthorsRepositoryImpl(), new CartRepositoryImpl(), new OrderBookRepositoryImpl(), new OrderRepositoryImpl()));
+        context.setAttribute("mapService", mapService);
+        context.setAttribute("searchService", new SearchBooksService(new BooksServiceImpl(booksRepository), new AuthorsServiceImpl(new AuthorsRepositoryImpl())));
+        context.setAttribute("sortService", new SortService(mapService));
         context.setAttribute("cartService", new CartServiceImpl(new CartRepositoryImpl()));
         context.setAttribute("orderService", new OrderServiceImpl(new OrderRepositoryImpl()));
         context.setAttribute("orderBookService", new OrderBookServiceImpl(new OrderBookRepositoryImpl()));
-        context.setAttribute("cartSumService", new CartSumService(new CartRepositoryImpl(), new BooksRepositoryImpl()));
+        context.setAttribute("cartSumService", new CartSumService(new CartRepositoryImpl(), booksRepository));
     }
 
     private void executeUpdateStatement(String query){

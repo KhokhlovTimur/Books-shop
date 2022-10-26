@@ -17,4 +17,6 @@ public interface BooksRepository {
     public List<Book> findAllBooks();
 
     public List<Book> orderBooksById();
+
+    public Optional<Book> findBookByTitle(String title);
 }

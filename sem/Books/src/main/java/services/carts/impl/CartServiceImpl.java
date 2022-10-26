@@ -1,13 +1,14 @@
-package services.carts;
+package services.carts.impl;
 
 import dao.cartsDao.CartRepository;
 import models.Cart;
 import models.User;
+import services.carts.CartService;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CartServiceImpl implements CartService{
+public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
 
     public CartServiceImpl(CartRepository cartRepository){
