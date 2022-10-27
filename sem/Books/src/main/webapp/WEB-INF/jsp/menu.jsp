@@ -9,7 +9,7 @@
 <c:choose>
     <c:when test="${sessionScope.role ne 'noAuth'}">
         <c:set var="userRole"
-               value="${applicationScope.usersService.findUserById(sessionScope.user.id).get().role}"></c:set>
+               value="${sessionScope.role}"></c:set>
     </c:when>
     <c:otherwise>
         <c:set var="userRole" value="noAuth"></c:set>
@@ -93,6 +93,6 @@
 
 </body>
 <style>
-    <%@include file="/css/menu.css" %>
+    <%@include file="/resources/css/menu.css" %>
 </style>
 </html>

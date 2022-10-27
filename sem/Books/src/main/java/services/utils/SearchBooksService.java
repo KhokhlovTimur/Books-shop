@@ -32,6 +32,7 @@ public class SearchBooksService {
         return bookDtoList;
     }
 
+
     private BookDto convertBookToBookDto(Book book) {
         BookDto bookDto = new BookDto();
         Author author = authorsService.findAuthorById(book.getAuthorId()).get();

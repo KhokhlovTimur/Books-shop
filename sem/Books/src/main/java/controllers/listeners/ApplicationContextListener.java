@@ -1,7 +1,7 @@
 package controllers.listeners;
 
 import dao.booksDao.BooksRepository;
-import dao.orderBookDao.OrderBookRepositoryImpl;
+import dao.orderBookDao.impl.OrderBookRepositoryImpl;
 import dao.authorsDao.impl.AuthorsRepositoryImpl;
 import dao.booksDao.impl.BooksRepositoryImpl;
 import dao.cartsDao.impl.CartRepositoryImpl;
@@ -31,14 +31,14 @@ public class ApplicationContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
-//        executeUpdateStatement(SQL_CREATE_TABLE_USERS);
-//        executeUpdateStatement(SQL_CREATE_TABLE_AUTHORS);
-//        executeUpdateStatement(SQL_CREATE_TABLE_BOOKS);
-//        executeUpdateStatement(SQL_CREATE_TABLE_CART);
-//        executeUpdateStatement(SQL_CREATE_TABLE_ORDER);
-//        executeUpdateStatement(SQL_CREATE_TABLE_ORDER_BOOK);
-//        executeUpdateStatement(SQL_INSERT_ADMIN);
-//        executeUpdateStatement(SQL_INSERT_VALUES_TO_AUTHORS);
+        executeUpdateStatement(SQL_CREATE_TABLE_USERS);
+        executeUpdateStatement(SQL_CREATE_TABLE_AUTHORS);
+        executeUpdateStatement(SQL_CREATE_TABLE_BOOKS);
+        executeUpdateStatement(SQL_CREATE_TABLE_CART);
+        executeUpdateStatement(SQL_CREATE_TABLE_ORDER);
+        executeUpdateStatement(SQL_CREATE_TABLE_ORDER_BOOK);
+        executeUpdateStatement(SQL_INSERT_ADMIN);
+        executeUpdateStatement(SQL_INSERT_VALUES_TO_AUTHORS);
         BooksRepository booksRepository = new BooksRepositoryImpl();
         MapService mapService = new MapService(booksRepository, new AuthorsRepositoryImpl(), new CartRepositoryImpl(), new OrderBookRepositoryImpl(), new OrderRepositoryImpl());
         context.setAttribute("usersService",new UsersServiceImpl(new UsersRepositoryImpl()));
@@ -76,11 +76,12 @@ public class ApplicationContextListener implements ServletContextListener {
     private static final String SQL_CREATE_TABLE_BOOKS = "create table if not exists books\n" +
             "(\n" +
             "    id                  bigserial primary key,\n" +
-            "    title              varchar(50),\n" +
+            "    title               varchar(50),\n" +
             "    author_id           bigint references authors (id),\n" +
             "    year_of_publication integer,\n" +
-            "    price integer\n" +
-            ")";
+            "    price               integer,\n" +
+            "    description varchar\n" +
+            ");";
 
     private static final String SQL_CREATE_TABLE_CART = "create table if not exists cart(\n" +
             "    id bigint,\n" +

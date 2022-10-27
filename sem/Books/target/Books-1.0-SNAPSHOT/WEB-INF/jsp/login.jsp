@@ -28,11 +28,11 @@
     </form>
 </div>
 
-<style><%@include file="/css/loginPage.css"%>
+<style><%@include file="/resources/css/loginPage.css"%>
 </style>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/login.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/login.js"></script>
 
 </body>
 </html>

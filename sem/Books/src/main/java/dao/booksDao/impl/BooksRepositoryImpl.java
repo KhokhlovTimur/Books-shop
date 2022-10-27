@@ -152,21 +152,4 @@ public class BooksRepositoryImpl implements BooksRepository {
         }
         return books;
     }
-
-    @Override
-    public Optional<Book> findBookByTitle(String title) {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BOOK_BY_ID)) {
-
-            statement.setString(1, title);
-            statement.execute();
-
-            ResultSet book = statement.executeQuery();
-            if (book.next()) {
-                return Optional.of(bookMapper.apply(book));
-            }
-        } catch (SQLException e) {
-            throw new IllegalArgumentException();
-        }
-        return Optional.empty();
-    }
 }

@@ -7,7 +7,6 @@
 }
 
 body {
-    /*background: #9b84ff;*/
     background: #fdfbf5;
 }
 
@@ -97,14 +96,12 @@ button.form-btn {
 button.form-btn.sx {
     left: 0;
     border-radius: 0 0 0 5px;
-    /*background-color: rgba(255, 125, 0, 0.35);*/
     background-color: #879cd0;
     color: #fff;
     transition:all 0.3s linear;
 }
 
 button.form-btn.sx:hover {
-    /*background-color:rgba(255, 125, 0, 0.65);*/
     background-color: #193a72;
     color: #fff;
 }
@@ -121,7 +118,6 @@ button.form-btn.sx.back:hover {
 button.form-btn.dx {
     right: 0;
     border-radius: 0 0 5px 0;
-    /*background-color: #ff7d00;*/
     background-color: #29487d;
     color: #fff;
 }

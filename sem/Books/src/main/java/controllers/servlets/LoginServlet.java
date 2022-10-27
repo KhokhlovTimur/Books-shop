@@ -26,11 +26,6 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UsersService usersService = (UsersService) getServletContext().getAttribute("usersService");
         String button = req.getParameter("button");
-        if (button != null && button.equals("exit")) {
-            req.getSession().setAttribute("role", null);
-            req.getSession().setAttribute("role", "noAuth");
-            req.setAttribute("button", null);
-        }
         HttpSession session = req.getSession();
         if (nonNull(button)) {
             switch (button) {
@@ -40,7 +35,6 @@ public class LoginServlet extends HttpServlet {
                     String passwordReg2 = req.getParameter("passwordReg2");
                     if (nonNull(passwordReg) && nonNull(loginReg) && nonNull(passwordReg2)) {
                         if (loginReg.length() > 0 && passwordReg.length() > 0 && passwordReg.equals(passwordReg2)) {
-                            session.setAttribute("login", loginReg);
                             req.setAttribute("button", null);
                             if (!usersService.findUserByLoginAndPassw(loginReg, HashConverter.hashPassword(passwordReg)).isPresent() && !usersService.findUserByLogin(loginReg).isPresent()) {
                                 usersService.saveUser(User.builder()
@@ -63,8 +57,7 @@ public class LoginServlet extends HttpServlet {
                             if (usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).isPresent()) {
                                 User user = usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).get();
                                 session.setAttribute("role", "auth");
-                                session.setAttribute("userId", user.getId());
-                                session.setAttribute("user", usersService.findUserById(user.getId()).get());
+                                session.setAttribute("user", user);
                                 if (usersService.findUserByLoginAndPassw(loginLog, HashConverter.hashPassword(passwordLog)).get().getRole().equals("admin")) {
                                     session.setAttribute("role", "admin");
                                 }
@@ -79,9 +72,15 @@ public class LoginServlet extends HttpServlet {
                     break;
                 case "without":
                     session.setAttribute("role", "noAuth");
+                    req.getSession().setAttribute("user", null);
                     req.setAttribute("button", null);
                     resp.sendRedirect("/menu");
                     break;
+                case "exit":
+                    req.getSession().setAttribute("user", null);
+                    req.getSession().setAttribute("role", "noAuth");
+                    req.setAttribute("button", null);
+                    resp.sendRedirect("/login");
             }
         }
     }

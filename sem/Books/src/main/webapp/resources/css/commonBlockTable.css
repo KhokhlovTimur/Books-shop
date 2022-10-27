@@ -5,7 +5,6 @@
     position: relative;
     margin: 0;
     box-sizing: border-box;
-    /*background: #3b5998;*/
 }
 
 .block1 button{
@@ -44,7 +43,6 @@
 
 
 .checkbox{
-    /*position: absolute;*/
     top: 0;
     left: 0;
     height: 20px;
@@ -55,8 +53,6 @@
 
 
 .label{
-    /*display: block;*/
-    /*position: relative;*/
     padding-left: 10px;
     margin-bottom: 7px;
     cursor: pointer;

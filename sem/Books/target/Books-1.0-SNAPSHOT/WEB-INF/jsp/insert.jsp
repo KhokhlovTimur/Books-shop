@@ -69,11 +69,11 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
-<script src="${pageContext.request.contextPath}/js/insert.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.1.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/insert.js"></script>
 
 <style>
-    <%@include file="/css/insert.css" %>
+    <%@include file="/resources/css/insert.css" %>
 </style>
 
 </body>

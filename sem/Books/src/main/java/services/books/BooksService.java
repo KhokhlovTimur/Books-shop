@@ -1,6 +1,5 @@
 package services.books;
 
-import models.Author;
 import models.Book;
 
 import java.util.List;

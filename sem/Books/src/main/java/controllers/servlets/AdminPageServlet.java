@@ -40,11 +40,8 @@ public class AdminPageServlet extends HttpServlet {
                     }
                     String newRole = role.substring(index);
                     User user = usersService.findUserById(Long.valueOf(id.toString())).get();
-                    usersService.updateUser(User.builder()
-                            .id(Long.valueOf(id.toString()))
-                            .login(user.getLogin())
-                            .password(user.getPassword())
-                            .role(newRole).build());
+                    user.setRole(newRole);
+                    usersService.updateUser(user);
                 }
             }
         }

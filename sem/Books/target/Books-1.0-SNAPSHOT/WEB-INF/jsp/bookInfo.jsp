@@ -38,7 +38,7 @@
 </div>
 
 <style>
-    <%@include file="/css/bookInfo.css" %>
+    <%@include file="/resources/css/bookInfo.css" %>
 </style>
 
 </body>

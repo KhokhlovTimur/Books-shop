@@ -118,13 +118,13 @@
     <div id="toTop">Наверх</div>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
-<script src="${pageContext.request.contextPath}/js/books.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.1.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/books.js"></script>
 
 <style>
-    <%@include file="/css/commonBlockTable.css" %>
-    <%@include file="/css/commonFormToTop.css"%>
-    <%@include file="/css/books.css"%>
+    <%@include file="/resources/css/commonBlockTable.css" %>
+    <%@include file="/resources/css/commonFormToTop.css"%>
+    <%@include file="/resources/css/books.css"%>
 </style>
 
 </body>

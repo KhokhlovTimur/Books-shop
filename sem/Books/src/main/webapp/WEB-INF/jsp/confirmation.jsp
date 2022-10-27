@@ -11,7 +11,7 @@
     </div>
     <button type="submit" class="conf">Подтвердить</button>
     <style>
-        <%@include file="/css/confirm.css" %>
+        <%@include file="/resources/css/confirm.css" %>
     </style>
 </form>
 </body>

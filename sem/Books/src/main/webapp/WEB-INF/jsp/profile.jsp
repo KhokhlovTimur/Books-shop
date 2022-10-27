@@ -5,7 +5,7 @@
     <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 </head>
 <body>
-<c:set var="userRole" value="${applicationScope.usersService.findUserById(sessionScope.user.id).get().role}"></c:set>
+<c:set var="userRole" value="${sessionScope.role}"></c:set>
 
 
 <div class="container2">
@@ -25,7 +25,7 @@
 
     </div>
     <div class="block1">
-        <form action="/login" method="get">
+        <form action="/login" method="post">
             <button name="button" value="exit">Выйти</button>
         </form>
         <form action="/menu" method="get">
@@ -78,12 +78,12 @@
 
 </div>
 
-<script src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
-<script src="${pageContext.request.contextPath}/js/profile.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.1.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
 
 <style>
-    <%@include file="/css/menu.css" %>
-    <%@include file="/css/profile.css" %>
+    <%@include file="/resources/css/menu.css" %>
+    <%@include file="/resources/css/profile.css" %>
 </style>
 </body>
 </html>

@@ -15,9 +15,11 @@ import java.io.IOException;
 public class CheckAdminFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        User user = ((User) req.getSession().getAttribute("user"));
-        if (user != null && ((UsersService) getServletContext().getAttribute("usersService"))
-                .findUserById(user.getId()).get().getRole().equals("admin")) {
+        User user = (User) req.getSession().getAttribute("user");
+        UsersService usersService = ((UsersService) getServletContext().getAttribute("usersService"));
+        if (user != null && usersService.findUserById(user.getId()).get().getRole().equals("admin")) {
+            user.setRole("admin");
+            req.getSession().setAttribute("user", user);
             chain.doFilter(req, res);
         } else {
             res.sendRedirect("/menu");

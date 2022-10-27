@@ -26,7 +26,7 @@
             <th>id</th>
             <th>login</th>
             <th>role</th>
-            <th>last session id</th>
+            <th>email</th>
             <c:set var="users" value="${applicationScope.usersService.findAllUsers()}"></c:set>
             <c:forEach var="user" items="${users}">
                 <tr>
@@ -53,13 +53,13 @@
     width: 100px;">^
 </div>
 <style>
-    <%@include file="/css/admin.css" %>
-    <%@include file="/css/commonFormToTop.css"%>
-    <%@include file="/css/commonBlockTable.css"%>
+    <%@include file="/resources/css/admin.css" %>
+    <%@include file="/resources/css/commonFormToTop.css"%>
+    <%@include file="/resources/css/commonBlockTable.css"%>
 </style>
 
-<script src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
-<script src="${pageContext.request.contextPath}/js/scroll.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.1.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/scroll.js"></script>
 
 </body>
 </html>

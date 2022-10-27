@@ -15,15 +15,15 @@ import java.io.IOException;
 public class CheckAuthRoleFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        User user = ((User) req.getSession().getAttribute("user"));
+        User user = (User) req.getSession().getAttribute("user");
         if (user != null) {
-            String role = ((UsersService) getServletContext().getAttribute("usersService"))
-                    .findUserById(user.getId()).get().getRole();
-            if (role != null && !role.equals("auth") && !role.equals("admin")) {
+            String role = ((UsersService) getServletContext().getAttribute("usersService")).findUserById(user.getId()).get().getRole();
+            if (role != null && (role.equals("auth") || role.equals("admin"))){
+                chain.doFilter(req, res);
+            }
+            else {
                 req.getSession().setAttribute("role", "noAuth");
                 res.sendRedirect("/menu");
-            } else {
-                chain.doFilter(req, res);
             }
         }
         else {
